@@ -1,0 +1,18 @@
+machine:
+  timezone:
+    Asia/Tokyo
+
+  ruby:
+    version:
+      2.2.0
+
+dependencies:
+  cache_directories:
+    - "vendor/bundle"
+  override:
+    - bundle -j4 --path=vendor/bundle
+  post:
+    - bundle exec rake assets:precompile
+test:
+  override:
+    - bundle exec rspec
