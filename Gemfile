@@ -32,8 +32,12 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'sqlite3'
-  gem 'rspec-rails', '~> 3.0'
-  gem 'rspec-activemodel-mocks'
   gem 'factory_girl_rails'
   gem "capybara"
+end
+
+group :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec_junit_formatter', '0.2.2'
 end
