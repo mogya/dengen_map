@@ -21,6 +21,7 @@ class CreateModels < ActiveRecord::Migration
       t.string :name
       t.string :type, index: true
       t.string :image
+      t.integer :sprite_pos
       t.text :detail
       t.integer :importance, index: true, default:0
       t.integer :parent_id, index: true

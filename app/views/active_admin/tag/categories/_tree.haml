@@ -1,0 +1,41 @@
+:ruby
+  tree = []
+  # 例えばファストフードにチェックを入れた場合、「PARENTがファストフード」の要素が入るけど、「ファストフード」そのものは入ってこない。これだと期待したツリーにならないので、親も勝手に追加してしまう
+  parents = []
+  @tag_categories.each do |tc|
+    parents << tc.parent unless tc.parent.nil?
+  end
+  parents.uniq.each do |tc|
+    element = {obj:tc, children:[]}
+    @tag_categories.where(parent_id: tc.id).each do |c_tc|
+      child = {obj:c_tc, children:[]}
+      Tag::Category.where(parent_id: c_tc.id).each do |cc_tc|
+        child[:children] << {obj:cc_tc, children:[]}
+      end
+      element[:children] << child
+    end
+    tree << element
+  end;nil
+.row
+  - tree.each do |element|
+    .col-sm-3
+      - next if element.nil?
+      %p
+        = link_to element[:obj].name, aa_tag_category_path(element[:obj])
+        = link_to '(edit)', edit_aa_tag_category_path(element[:obj])
+      %div
+        - unless element[:children].empty?
+          - element[:children].each do |child|
+            - next if child.nil?
+            %p
+              ='  └'
+              = link_to child[:obj].name, aa_tag_category_path(child[:obj])
+              = link_to '(edit)', edit_aa_tag_category_path(child[:obj])
+            - unless child[:children].empty?
+              %div
+                - child[:children].each do |grandchild|
+                  - next if grandchild.nil?
+                  %p
+                    ='    └'
+                    = link_to grandchild[:obj].name, aa_tag_category_path(grandchild[:obj])
+                    = link_to '(edit)', edit_aa_tag_category_path(grandchild[:obj])
