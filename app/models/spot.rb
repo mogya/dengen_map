@@ -13,6 +13,8 @@ class Spot < ActiveRecord::Base
   has_many :category_tags, ->{order("importance DESC") }, class_name: 'Tag::Category', :through => :spots_tags, :source => :tag
 
   LATLNG_MULTIPLIER = 100000 # lat,lngは、整数で扱うためにLATLNG_MULTIPLIER倍して格納されている
+  accepts_nested_attributes_for :links, allow_destroy:true
+  accepts_nested_attributes_for :spot_infos, allow_destroy:true
 
   def latitude
     self.lat.to_f / LATLNG_MULTIPLIER

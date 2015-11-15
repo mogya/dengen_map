@@ -1,0 +1,6 @@
+#notifications
+  - flash.each do |key, sentence|
+    .alert{:class => alert_class_for(key) }
+      %button.close{ type:"button", data:{ dismiss:"alert" } }
+        &times;
+      = sentence
