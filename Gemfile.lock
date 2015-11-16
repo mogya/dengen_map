@@ -104,6 +104,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     dotenv (2.0.2)
     dotenv-rails (2.0.2)
       dotenv (= 2.0.2)
@@ -253,6 +254,11 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     sexp_processor (4.6.0)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     slop (3.6.0)
     spring (1.4.0)
     sprockets (3.4.0)
@@ -299,7 +305,6 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.5)
   byebug
   capybara
-  coffee-rails (~> 4.1.0)
   daemons (= 1.2.2)
   delayed_job (= 4.0.6)
   delayed_job_active_record (= 4.0.3)
@@ -317,6 +322,7 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  simplecov
   spring
   sqlite3
   therubyracer
