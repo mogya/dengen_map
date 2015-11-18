@@ -1,0 +1,10 @@
+= form_for @spot_info_smoke do |f|
+  - if @spot_info_smoke.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@spot_info_smoke.errors.count, "error")} prohibited this spot_info_smoke from being saved:"
+      %ul
+        - @spot_info_smoke.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

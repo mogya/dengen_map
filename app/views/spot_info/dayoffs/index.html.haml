@@ -1,0 +1,19 @@
+%h1 Listing spot_info_dayoffs
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @spot_info_dayoffs.each do |spot_info_dayoff|
+      %tr
+        %td= link_to 'Show', spot_info_dayoff
+        %td= link_to 'Edit', edit_spot_info_dayoff_path(spot_info_dayoff)
+        %td= link_to 'Destroy', spot_info_dayoff, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Dayoff', new_spot_info_dayoff_path

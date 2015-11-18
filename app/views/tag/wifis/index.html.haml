@@ -1,0 +1,19 @@
+%h1 Listing tag_wifis
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @tag_wifis.each do |tag_wifi|
+      %tr
+        %td= link_to 'Show', tag_wifi
+        %td= link_to 'Edit', edit_tag_wifi_path(tag_wifi)
+        %td= link_to 'Destroy', tag_wifi, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Wifi', new_tag_wifi_path

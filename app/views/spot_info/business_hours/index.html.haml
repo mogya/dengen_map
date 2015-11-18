@@ -1,0 +1,19 @@
+%h1 Listing spot_info_business_hours
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @spot_info_business_hours.each do |spot_info_business_hour|
+      %tr
+        %td= link_to 'Show', spot_info_business_hour
+        %td= link_to 'Edit', edit_spot_info_business_hour_path(spot_info_business_hour)
+        %td= link_to 'Destroy', spot_info_business_hour, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Business hour', new_spot_info_business_hour_path

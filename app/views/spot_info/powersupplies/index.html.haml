@@ -1,0 +1,19 @@
+%h1 Listing spot_info_powersupplies
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @spot_info_powersupplies.each do |spot_info_powersupply|
+      %tr
+        %td= link_to 'Show', spot_info_powersupply
+        %td= link_to 'Edit', edit_spot_info_powersupply_path(spot_info_powersupply)
+        %td= link_to 'Destroy', spot_info_powersupply, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Powersupply', new_spot_info_powersupply_path

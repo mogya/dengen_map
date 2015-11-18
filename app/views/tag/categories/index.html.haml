@@ -1,0 +1,19 @@
+%h1 Listing tag_categories
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @tag_categories.each do |tag_category|
+      %tr
+        %td= link_to 'Show', tag_category
+        %td= link_to 'Edit', edit_tag_category_path(tag_category)
+        %td= link_to 'Destroy', tag_category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Category', new_tag_category_path

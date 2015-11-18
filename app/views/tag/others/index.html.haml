@@ -1,0 +1,19 @@
+%h1 Listing tag_others
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @tag_others.each do |tag_other|
+      %tr
+        %td= link_to 'Show', tag_other
+        %td= link_to 'Edit', edit_tag_other_path(tag_other)
+        %td= link_to 'Destroy', tag_other, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Other', new_tag_other_path

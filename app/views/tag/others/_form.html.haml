@@ -1,0 +1,10 @@
+= form_for @tag_other do |f|
+  - if @tag_other.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@tag_other.errors.count, "error")} prohibited this tag_other from being saved:"
+      %ul
+        - @tag_other.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

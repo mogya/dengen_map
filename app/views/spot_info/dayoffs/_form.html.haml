@@ -1,0 +1,10 @@
+= form_for @spot_info_dayoff do |f|
+  - if @spot_info_dayoff.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@spot_info_dayoff.errors.count, "error")} prohibited this spot_info_dayoff from being saved:"
+      %ul
+        - @spot_info_dayoff.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

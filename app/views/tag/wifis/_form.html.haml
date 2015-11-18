@@ -1,0 +1,10 @@
+= form_for @tag_wifi do |f|
+  - if @tag_wifi.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@tag_wifi.errors.count, "error")} prohibited this tag_wifi from being saved:"
+      %ul
+        - @tag_wifi.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

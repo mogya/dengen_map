@@ -1,0 +1,19 @@
+%h1 Listing spot_info_smokes
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @spot_info_smokes.each do |spot_info_smoke|
+      %tr
+        %td= link_to 'Show', spot_info_smoke
+        %td= link_to 'Edit', edit_spot_info_smoke_path(spot_info_smoke)
+        %td= link_to 'Destroy', spot_info_smoke, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Smoke', new_spot_info_smoke_path
