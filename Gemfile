@@ -12,7 +12,6 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'haml-rails'
-gem "therubyracer"
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'font-awesome-sass'
 
