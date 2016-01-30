@@ -8,6 +8,8 @@ class CreateModels < ActiveRecord::Migration
       t.integer :lat, index: true
       t.integer :lng, index: true
       t.integer :powersupply_score, default: 0, index: true
+      t.integer :ee_id
+      t.integer :ee_url_title
 
       t.timestamps null: false
     end
