@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 20151115124631) do
     t.integer  "lat"
     t.integer  "lng"
     t.integer  "powersupply_score", default: 0
+    t.integer  "ee_id"
+    t.integer  "ee_url_title"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end
