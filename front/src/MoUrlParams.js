@@ -33,7 +33,11 @@ export default class MoUrlParams {
     history.replaceState( '', null, pathnames.join('/').replace(/\/$/,'')+queryString.replace('?&','?') );
   }
   set(key,value){
-    this.params[key] = value;
+    if (value===null){
+      delete this.params[key];
+    }else{
+      this.params[key] = value;
+    }
     this._save();
     return this;
   }
@@ -89,9 +93,13 @@ export default class MoUrlParams {
   }
   getTitle(){
     if (!this.title){
-      const title = window.location.pathname.split('/').pop();
-      if (title.indexOf('map')<0){
-        this.title = title;
+      let title = window.location.pathname.split('/').pop();
+      if (title.indexOf('map')>=0){
+        title = this.get('title');
+        this.set('title',null);
+      }
+      if (title){
+        this.title = decodeURIComponent(title).replace(/付近$/,'');
       }else{
         this.title = null;
       }
@@ -101,7 +109,7 @@ export default class MoUrlParams {
   updateTitleTag(){
     let title = this.getTitle();
     if (title){
-      document.title = `${decodeURIComponent(title)}付近の電源マップ - モバイラーズオアシス`;
+      document.title = `${title}付近の電源マップ - モバイラーズオアシス`;
     }else{
       document.title = '電源マップ - モバイラーズオアシス';
     }
