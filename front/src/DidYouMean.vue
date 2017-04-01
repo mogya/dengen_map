@@ -1,6 +1,7 @@
 <template>
   <div class="didyoumean well section collapse in" aria-expanded="true" v-if='!closed && candidates.length>0'>
-    <h5 class="title">もしかして... <i class="fa fa-close" aria-hidden="true" @click='closed=true'></i></h5>
+    <h5 class="title">もしかして...
+      <i class="icon-close" aria-hidden="true" @click='closed=true'></i></h5>
     <div>
       <span v-for="station in candidates">
         <a :href="stationUrl(station)">{{station.name}}({{station.line}})</a>

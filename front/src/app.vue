@@ -1,7 +1,7 @@
 <template>
 <div :class="{ pc:!smpMode, smp:smpMode }" >
   <moadvertisement adType='header' class='area__ad_header' v-if='!smpMode'></moadvertisement>
-  <div class='area__main' >
+  <div class='area__main'>
     <didyoumean
       :query='this.searchWord'
       @error="onError"
@@ -99,8 +99,7 @@ html, body, #wrapper, #wrapper>div {
     height: 400px;
     left: 0;
     position: absolute;
-    top: 85px;
-    width: 100%;
+    top: 75px;
     z-index: z(default_layer);
     width: 100%;
   }
@@ -110,7 +109,7 @@ html, body, #wrapper, #wrapper>div {
     bottom: 0;
     left: 0;
     position: absolute;
-    top: 85px;
+    top: 75px;
     width: 100%;
     z-index: z(default_layer);
   }
@@ -135,7 +134,7 @@ html, body, #wrapper, #wrapper>div {
 .molist{
   bottom: 0;
   position: absolute;
-  top: 600px;
+  top: 480px;
   width: 100%;
 }
 </style>

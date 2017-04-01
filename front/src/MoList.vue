@@ -1,15 +1,15 @@
 <template>
-  <div class='molist spot__area'>
+  <div class='molist spot__area clearfix'>
     <div v-for="(spot,i) in sortedSpots" key='spot.id' :class="`area-${i}`">
-      <div class='col-xs-12 ad_area_inlist' v-if="showAd(i)">
-        <moadvertisement adType='inlist' ></moadvertisement>
-      </div>
       <div class='col-xs-12 col-sm-6 col-md-4 spot__area_outer'>
         <div class='spot__area_inner' :class="{selected: isSpotSelected(spot)}" >
           <p class='title'><a :href='spot.moUrl'>{{spot.title}}</a></p>
           <mo-spot-icons :spot='spot'></mo-spot-icons>
           <p class='address'>{{spot.address}}</p>
         </div>
+      </div>
+      <div class='col-xs-12 ad_area_inlist' v-if="showAd(i)">
+        <moadvertisement adType='inlist' ></moadvertisement>
       </div>
     </div>
     <div class='col-xs-12 ad_area_inlist'>

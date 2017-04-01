@@ -54,12 +54,12 @@
            v-show="showSearchControl" @keyup.enter="search" v-model="searchWord">
         </input>
         <span @click="onSearchControlClick">
-          <i class="fa fa-search" aria-hidden="true"></i>
+          <i class="icon-search" aria-hidden="true"></i>
         </span>
       </div>
       <div id='js-gps-control' class='gmap-control'>
         <span @click="onGpsControlClick">
-          <i class="fa fa-location-arrow" aria-hidden="true"></i>
+          <i class="icon-location-arrow" aria-hidden="true"></i>
         </span>
       </div>
     </div>

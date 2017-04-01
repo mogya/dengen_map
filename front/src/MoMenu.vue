@@ -3,23 +3,23 @@
     <div class='momenu__default'>
       <div class='momenu__button'>
         <a class="btn btn-default" :class="{ active:!pcMode }" href="#" @click="onClickPcMode(false)">
-          <i class="fa fa-mobile" aria-hidden="true"></i>
-          <span>充電</span>
+          <i class="icon-mobile" aria-hidden="true"></i>
+          <span v-if='showMore'>充電</span>
         </a>
       </div>
       <div class='momenu__button'>
         <a class="btn btn-default" :class="{ active:pcMode }" href="#" @click='onClickPcMode(true)'>
-          <i class="fa fa-laptop" aria-hidden="true"></i>
-          <span>パソコン</span>
+          <i class="icon-laptop" aria-hidden="true"></i>
+          <span v-if='showMore'>パソコン</span>
         </a>
       </div>
       <div class='momenu__button'>
         <a class="btn btn-default" href="#" role="button" v-if='!showMore' @click='onClickMore'>
-          <i class="fa fa-caret-down" aria-hidden="true"></i>
-          <span>More</span>
+          <i class="icon-caret-down" aria-hidden="true"></i>
+          <span v-if='showMore'>More</span>
         </a>
         <a class="momenu__button col-xs-4 btn btn-default" href="#" role="button" v-if='showMore' @click='onClickMore'>
-          <i class="fa fa-caret-up" aria-hidden="true"></i>
+          <i class="icon-caret-up" aria-hidden="true"></i>
           <span>Less</span>
         </a>
       </div>
@@ -80,7 +80,7 @@
     .btn{
       width:100%;
       text-align: center;
-      .fa {
+      i {
         display: block;
         font-size: 2em;
       }
