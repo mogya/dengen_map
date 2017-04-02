@@ -48,7 +48,7 @@
     <div style='display:none;'>
       <div id='js-search-control' class='gmap-control'>
         <span @click="onSearchCancelControlClick" v-show="showSearchControl">
-          <i class="icon-list"></i>
+          <i class="icon-caret-right"></i>
         </span>
         <input type='text' placeholder='地名や駅名を入力'
            v-show="showSearchControl" @keyup.enter="search" v-model="searchWord">

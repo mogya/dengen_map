@@ -12,25 +12,31 @@
 
 <style lang="scss">
 .didyoumean{
-  position: fixed;
-  width: 100%;
+  background: #FFF;
   border: 1px solid #111;
   border-radius: 10px;
+  position: fixed;
+  width: 100%;
   z-index: 10;
   .title{
-    .fa{
+    font-size: 1.2em;
+    margin: 10px;
+    i{
       float: right;
       cursor: pointer;
       font-size: x-large;
     }
   }
-  span{
-    font-size: 1.2em;
-    &:after{
-      content: ' / '
-    }
-    &:last-child:after{
-      content: ''
+  div{
+    margin: 10px;
+    span{
+      font-size: 1.2em;
+      &:after{
+        content: ' / '
+      }
+      &:last-child:after{
+        content: ''
+      }
     }
   }
 }
