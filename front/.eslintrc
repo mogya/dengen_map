@@ -1,0 +1,19 @@
+{
+  "extends": ["vue", "eslint:recommended"],
+  "plugins": ["vue"],
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "globals": {
+    'console':false,
+    'jQUery':false,
+    '$':false
+  },
+  "rules": {
+    "no-console": 0
+  }
+}
