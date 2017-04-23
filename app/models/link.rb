@@ -1,4 +1,4 @@
-class Link < ActiveRecord::Base
+class Link < ApplicationRecord
   belongs_to :spot
   enum link_type: [:official, :facebook, :instgram, :twitter, :other]
 

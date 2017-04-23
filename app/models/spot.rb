@@ -1,4 +1,4 @@
-class Spot < ActiveRecord::Base
+class Spot < ApplicationRecord
   enum status: [ :hidden, :open, :pending, :closed, :down ]
   has_many :links
   has_many :spot_infos
