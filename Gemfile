@@ -5,7 +5,7 @@ gem 'dotenv-rails'
 
 gem 'sqlite3'
 gem 'pg'
-gem 'mysql'
+gem 'mysql2'
 
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1.0'

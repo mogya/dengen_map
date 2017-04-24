@@ -6,7 +6,7 @@ services:
     volumes:
       - /share
       - ..:/app
-      # - ./mysql/app.conf:/etc/mysql/conf.d/app.conf:ro
+      - ./mysql/app.conf:/etc/mysql/conf.d/app.conf:ro
   db:
     env_file: ../.env
     image: postgres
@@ -16,23 +16,23 @@ services:
       PGDATA: /app/db/postgres/data
     volumes_from:
       - data
-  # mysql:
-  #   env_file: ../.env
-  #   image: mysql
-  #   environment:
-  #     MYSQL_DATABASE: $MYSQL_DATABASE
-  #     MYSQL_USER: $MYSQL_USER
-  #     MYSQL_PASSWORD: $MYSQL_PASSWORD
-  #     MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-  #     PGDATA: /app/db/mysql/data
-  #   volumes_from:
-  #     - data
-  # nginx:
-  #   image: nginx
-  #   ports:
-  #    - "8040:8080"
-  #   volumes_from:
-  #     - data
+  mysql:
+    env_file: ../.env
+    image: mysql
+    environment:
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      PGDATA: /app/db/mysql/data
+    volumes_from:
+      - data
+  nginx:
+    image: nginx
+    ports:
+     - "8040:8080"
+    volumes_from:
+      - data
   app:
     build:
       context: ../
@@ -43,6 +43,6 @@ services:
       - data
     links:
       - db:db
-      # - mysql:mysql
+      - mysql:mysql
     ports:
      - "3000:3000"
