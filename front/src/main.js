@@ -12,6 +12,7 @@ if (!window.Promise) {
 
 Vue.use(VueRouter);
 const routes = [
+  { path: '/index.html', component: MapView },
   { path: '/map', component: MapView },
   { path: '/map/:mapname', component: MapView },
   { path: '/contribute', component: ContributeView }

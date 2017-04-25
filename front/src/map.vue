@@ -39,104 +39,104 @@
 </div>
 </template>
 <style lang="scss">
-$z-map: (
-  default_layer,
-  ad_layer,
-  menu_layer,
-  loading_layer,
-  message_layer,
-  grayout_layer
-);
-@function z($name) {
-  @return index($z-map, $name);
-}
-
-html, body, #wrapper, #wrapper>div {
-  height: 100%;
-  width: 100%;
-  margin: 0px;
-  padding: 0px;
-  position: relative;
-}
-.area__ad_header,.area__ad_footer{
-  height: 100px;
-  width: 100%;
-  z-index: z(ad_layer);
-}
-.area__ad_footer{
-  position: absolute;
-  bottom: 0;
-}
-.pc{
-  .area__main{
-    position: absolute;
-    left: 0;
-    top: 100px;
-    width: 100%;
+  $z-map: (
+    default_layer,
+    ad_layer,
+    menu_layer,
+    loading_layer,
+    message_layer,
+    grayout_layer
+  );
+  @function z($name) {
+    @return index($z-map, $name);
   }
-}
-.smp{
-  .area__main{
-    bottom: 100px;
+
+  html, body, #wrapper, #wrapper>div {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+  }
+  .area__ad_header,.area__ad_footer{
+    height: 100px;
+    width: 100%;
+    z-index: z(ad_layer);
+  }
+  .area__ad_footer{
+    position: absolute;
+    bottom: 0;
+  }
+  .pc{
+    .area__main{
+      position: absolute;
+      left: 0;
+      top: 100px;
+      width: 100%;
+    }
+  }
+  .smp{
+    .area__main{
+      bottom: 100px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  .momenu{
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
+    z-index: z(menu_layer);
   }
-}
-
-.momenu{
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: z(menu_layer);
-}
-.momap{
-}
-.pc{
   .momap{
-    height: 400px;
+  }
+  .pc{
+    .momap{
+      height: 400px;
+      left: 0;
+      position: absolute;
+      top: 75px;
+      z-index: z(default_layer);
+      width: 100%;
+    }
+  }
+  .smp{
+    .momap{
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      top: 75px;
+      width: 100%;
+      z-index: z(default_layer);
+    }
+  }
+  .momap_loading, .momap_message{
     left: 0;
     position: absolute;
-    top: 75px;
-    z-index: z(default_layer);
+    text-align: center;
+    top: 300px;
     width: 100%;
+    z-index: z(loading_layer);
   }
-}
-.smp{
-  .momap{
+  .momap_message{
+    z-index: z(message_layer);
+  }
+  .momap_loading img, .momap_message p{
+    background: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .molist{
     bottom: 0;
-    left: 0;
     position: absolute;
-    top: 75px;
+    top: 480px;
     width: 100%;
-    z-index: z(default_layer);
   }
-}
-.momap_loading, .momap_message{
-  left: 0;
-  position: absolute;
-  text-align: center;
-  top: 300px;
-  width: 100%;
-  z-index: z(loading_layer);
-}
-.momap_message{
-  z-index: z(message_layer);
-}
-.momap_loading img, .momap_message p{
-  background: white;
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 10px;
-}
-.molist{
-  bottom: 0;
-  position: absolute;
-  top: 480px;
-  width: 100%;
-}
 </style>
 <script>
 import Vue from 'vue';
@@ -206,7 +206,6 @@ export default {
         this.momenu = this.$refs.momenu;
         this.molist = this.$refs.molist;
       }
-      this.adjustMapSize();
       this.update();
     },
     onResize(){
@@ -249,33 +248,22 @@ export default {
     },
     onMenuOpened(open){
       ga('send', 'event', 'map', 'MenuOpened');
-      // this.adjustMapSize();
-    },
-    adjustMapSize(){
-      // if (this.smpMode){
-      //   const gmapDiv = document.getElementsByClassName('vue-map')[0];
-      //   const momenuHeight = document.getElementsByClassName('momenu')[0].offsetHeight + 10;
-      //   // const adHeaderHeight = document.getElementsByClassName('area__ad_header')[0].offsetHeight;
-      //   const adFooterHeight = document.getElementsByClassName('area__ad_footer')[0].offsetHeight;
-      //   gmapDiv.style.height = `${window.innerHeight-momenuHeight-adFooterHeight}px`;
-      //   if (google && google.maps){
-      //     google.maps.event.trigger(this.momap.gmapObj,'resize');
-      //   }
-      // }
     },
     update(){
       this.loading = true;
       this.message = null;
       let tasks = [];
       ['電源OK','電源:実績あり'].forEach((power_tag)=>{
-        const params = {
+        let params = {
           tag: power_tag,
           n: this.momap.bounds.n,
           s: this.momap.bounds.s,
           w: this.momap.bounds.w,
-          e: this.momap.bounds.e,
-          lat: this.momap.lat,
-          lng: this.momap.lng
+          e: this.momap.bounds.e
+        }
+        if (!this.smpMode){
+          params.lat = this.momap.lat;
+          params.lng = this.momap.lng;
         }
         tasks.push( moAPI.search(params) );
       });
