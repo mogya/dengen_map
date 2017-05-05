@@ -40,31 +40,19 @@ ActiveRecord::Schema.define(version: 20170427053753) do
   end
 
   create_table "spots", force: :cascade do |t|
-<<<<<<< HEAD
-    t.string   "name"
-    t.integer  "status",            default: 0, null: false
-    t.text     "address"
-    t.string   "tel"
-    t.integer  "lat"
-    t.integer  "lng"
-    t.integer  "powersupply_score", default: 0
-    t.integer  "ee_id"
-    t.integer  "ee_url_title"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-=======
     t.string    "name"
     t.integer   "status",                                                                        default: 0, null: false
     t.text      "address"
     t.string    "tel"
     t.integer   "powersupply_score",                                                             default: 0
+    t.integer   "ee_id"
+    t.integer   "ee_url_title"
     t.datetime  "created_at",                                                                                null: false
     t.datetime  "updated_at",                                                                                null: false
     t.geography "lonlat",            limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.index ["lonlat"], name: "index_spots_on_lonlat", using: :gist
     t.index ["powersupply_score"], name: "index_spots_on_powersupply_score", using: :btree
     t.index ["status"], name: "index_spots_on_status", using: :btree
->>>>>>> develop
   end
 
   create_table "spots_tags", id: false, force: :cascade do |t|
