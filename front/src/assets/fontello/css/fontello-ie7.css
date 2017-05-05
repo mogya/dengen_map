@@ -1,0 +1,24 @@
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'fontello';
+  font-style: normal;
+  font-weight: normal;
+ 
+  /* fix buttons height */
+  line-height: 1em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+}
+ 
+.icon-close { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;'); }
+.icon-list { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe801;&nbsp;'); }
+.icon-caret-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe803;&nbsp;'); }
+.icon-search { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe804;&nbsp;'); }
+.icon-caret-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe805;&nbsp;'); }
+.icon-caret-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe806;&nbsp;'); }
+.icon-caret-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe807;&nbsp;'); }
+.icon-laptop { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf109;&nbsp;'); }
+.icon-mobile { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf10b;&nbsp;'); }
+.icon-location-arrow { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf124;&nbsp;'); }
+.icon-exclamation { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf12a;&nbsp;'); }
+.icon-map-o { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf278;&nbsp;'); }

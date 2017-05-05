@@ -1,0 +1,48 @@
+version: '2'
+services:
+  data:
+    image: busybox
+    command: /bin/sh
+    volumes:
+      - /share
+      - ..:/app
+      # - ./mysql/app.conf:/etc/mysql/conf.d/app.conf:ro
+  db:
+    env_file: ../.env
+    image: mdillon/postgis
+    environment:
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
+      PGDATA: /app/db/postgres/data
+    volumes_from:
+      - data
+  # mysql:
+  #   env_file: ../.env
+  #   image: mysql
+  #   environment:
+  #     MYSQL_DATABASE: $MYSQL_DATABASE
+  #     MYSQL_USER: $MYSQL_USER
+  #     MYSQL_PASSWORD: $MYSQL_PASSWORD
+  #     MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+  #     PGDATA: /app/db/mysql/data
+  #   volumes_from:
+  #     - data
+  # nginx:
+  #   image: nginx
+  #   ports:
+  #    - "8040:8080"
+  #   volumes_from:
+  #     - data
+  app:
+    build:
+      context: ../
+      dockerfile: docker/app/Dockerfile
+    environment:
+      RAILS_ENV: $RAILS_ENV
+    volumes_from:
+      - data
+    links:
+      - db:db
+      # - mysql:mysql
+    ports:
+     - "3000:3000"

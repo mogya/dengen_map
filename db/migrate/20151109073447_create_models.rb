@@ -14,11 +14,6 @@ class CreateModels < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    create_table :spots_tags, id: false do |t|
-      t.references :spot, index: true, foreign_key: true
-      t.references :tag, index: true, foreign_key: true
-    end
-
     create_table :tags do |t|
       t.string :name
       t.string :type, index: true
@@ -29,6 +24,11 @@ class CreateModels < ActiveRecord::Migration
       t.integer :parent_id, index: true
 
       t.timestamps null: false
+    end
+
+    create_table :spots_tags, id: false do |t|
+      t.references :spot, index: true, foreign_key: true
+      t.references :tag, index: true, foreign_key: true
     end
 
     create_table :links do |t|

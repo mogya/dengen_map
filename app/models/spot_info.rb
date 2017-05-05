@@ -1,3 +1,3 @@
-class SpotInfo < ActiveRecord::Base
+class SpotInfo < ApplicationRecord
   belongs_to :spot
 end
