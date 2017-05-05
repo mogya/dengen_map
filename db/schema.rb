@@ -10,39 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115124631) do
+ActiveRecord::Schema.define(version: 20170427053753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "active_admin_comments", force: :cascade do |t|
-    t.string   "namespace"
-    t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
-    t.integer  "author_id"
-    t.string   "author_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
-    t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
-    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
-  end
-
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
-  end
+  enable_extension "postgis"
 
   create_table "links", force: :cascade do |t|
     t.string   "url"
@@ -68,19 +40,15 @@ ActiveRecord::Schema.define(version: 20151115124631) do
   end
 
   create_table "spots", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "status",            default: 0, null: false
-    t.text     "address"
-    t.string   "tel"
-    t.integer  "lat"
-    t.integer  "lng"
-    t.integer  "powersupply_score", default: 0
-    t.integer  "ee_id"
-    t.integer  "ee_url_title"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.index ["lat"], name: "index_spots_on_lat", using: :btree
-    t.index ["lng"], name: "index_spots_on_lng", using: :btree
+    t.string    "name"
+    t.integer   "status",                                                                        default: 0, null: false
+    t.text      "address"
+    t.string    "tel"
+    t.integer   "powersupply_score",                                                             default: 0
+    t.datetime  "created_at",                                                                                null: false
+    t.datetime  "updated_at",                                                                                null: false
+    t.geography "lonlat",            limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.index ["lonlat"], name: "index_spots_on_lonlat", using: :gist
     t.index ["powersupply_score"], name: "index_spots_on_powersupply_score", using: :btree
     t.index ["status"], name: "index_spots_on_status", using: :btree
   end
@@ -126,4 +94,8 @@ ActiveRecord::Schema.define(version: 20151115124631) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "links", "spots"
+  add_foreign_key "spot_infos", "spots"
+  add_foreign_key "spots_tags", "spots"
+  add_foreign_key "spots_tags", "tags"
 end
