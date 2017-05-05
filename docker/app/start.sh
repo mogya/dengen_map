@@ -2,8 +2,9 @@ mkdir -p log/unicorn/
 mkdir -p log/nginx/
 mkdir -p db/postgres/data
 mkdir -p db/mysql/data
-# echo 'rake db:migrate'
-# bundle exec rake db:migrate
+echo 'rake db:migrate'
+bundle exec rake db:gis:setup
+bundle exec rake db:migrate
 if [ "$RAILS_ENV" == "development" ]
 then
   echo 'start bash.'
