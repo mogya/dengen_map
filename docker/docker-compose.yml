@@ -9,7 +9,7 @@ services:
       # - ./mysql/app.conf:/etc/mysql/conf.d/app.conf:ro
   db:
     env_file: ../.env
-    image: postgres
+    image: mdillon/postgis
     environment:
       POSTGRES_USER: $DB_USER
       POSTGRES_PASSWORD: $DB_PASSWORD

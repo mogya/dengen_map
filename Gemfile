@@ -1,36 +1,38 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5'
+gem 'rails', '~> 5.0.0'
 gem 'dotenv-rails'
 
 gem 'pg'
+gem 'activerecord-postgis-adapter'
 
-gem 'sass-rails', '~> 5.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'sass-rails'
+gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'jbuilder'
+gem 'sdoc', group: :doc
 
 gem 'haml-rails'
-gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 
 gem 'devise'
-gem 'aws-ses', '~> 0.5.0', :require => 'aws/ses'
-gem 'daemons', '1.2.2'
+gem 'aws-ses', :require => 'aws/ses'
+gem 'daemons'
 gem 'yaml_db'
 
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'byebug'
-  gem 'better_errors', '2.1.1'
+  gem 'better_errors'
   gem 'spring'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails'
   gem 'rspec-activemodel-mocks'
+  gem 'rspec-parameterized'
   gem 'factory_girl_rails'
   gem "capybara"
 end
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
 end

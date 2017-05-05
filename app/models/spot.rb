@@ -1,5 +1,6 @@
 class Spot < ApplicationRecord
-  enum status: [ :hidden, :open, :pending, :closed, :down ]
+  include Postgis
+  enum status: [ :status_hidden, :status_open, :status_pending, :status_closed, :status_down ]
   has_many :links
   has_many :spot_infos
   has_many :smoke_infos, class_name: 'SpotInfo::Smoke'
@@ -12,25 +13,8 @@ class Spot < ApplicationRecord
   has_many :other_tags, ->{order("importance DESC") }, class_name: 'Tag::Other', :through => :spots_tags, :source => :tag
   has_many :category_tags, ->{order("importance DESC") }, class_name: 'Tag::Category', :through => :spots_tags, :source => :tag
 
-  LATLNG_MULTIPLIER = 100000 # lat,lngは、整数で扱うためにLATLNG_MULTIPLIER倍して格納されている
   accepts_nested_attributes_for :links, allow_destroy:true
   accepts_nested_attributes_for :spot_infos, allow_destroy:true
-
-  def latitude
-    self.lat.to_f / LATLNG_MULTIPLIER
-  end
-  def longitude
-    self.lng.to_f / LATLNG_MULTIPLIER
-  end
-  def latitude=(value)
-    self.lat = (value.to_f * LATLNG_MULTIPLIER).to_i
-  end
-  def longitude=(value)
-    self.lng = (value.to_f * LATLNG_MULTIPLIER).to_i
-  end
-  def latlng_str
-    "#{self.latitude},#{self.longitude}"
-  end
 
   def dayoff
     dayoff_infos.last.to_s
@@ -69,5 +53,4 @@ class Spot < ApplicationRecord
   def to_s
     name
   end
-
 end
