@@ -1,5 +1,5 @@
 class SpotInfo::BusinessHour < SpotInfo
-  def to_s
-    detail
+  after_create do
+    self.name = '営業時間'
   end
 end

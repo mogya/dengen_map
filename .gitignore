@@ -23,3 +23,4 @@ db/*.db
 db/postgres
 db/*.sqlite3
 db/*.sqlite3-journal
+.byebug_history

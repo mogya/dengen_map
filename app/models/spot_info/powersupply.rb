@@ -1,10 +1,14 @@
 class SpotInfo::Powersupply < SpotInfo
-  enum value: [ :ng, :possible, :ok]
+  # 当面はタグの方使ってこっちは使わない。投票システムのときに使うかも？
+  enum value: [ :ng, :possible, :ok, :netcafe]
+  after_create do
+    self.name = '電源'
+  end
 
   def to_s
-    ret = value_string
-    ret += "(#{detail})" unless detail.nil?
-    return ret
+    v = value_string
+    v += "(#{detail})" unless detail.nil?
+    return "#{name}:#{v}"
   end
 
   private
@@ -17,7 +21,8 @@ class SpotInfo::Powersupply < SpotInfo
       '壁コンセント(許可が必要)'
     when ok?
       'お客様用コンセントあり'
+    when netcafe?
+      'たぶんOK(ネットカフェ)'
     end
   end
-
 end

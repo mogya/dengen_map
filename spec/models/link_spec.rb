@@ -1,36 +1,52 @@
 require 'rails_helper'
 
 RSpec.describe Link, type: :model do
-  describe "links" do
-    context "official link method" do
-      it "normal case" do
-        spot = Spot.new
-        spot.links.build(url:'http://example.com/official', link_type:Link.link_types[:official])
-        spot.links.build(url:'http://example.com/twitter', link_type:Link.link_types[:twitter])
-        spot.links.build(url:'http://example.com/other', link_type:Link.link_types[:other])
-        expect(spot.official_link.url).to eq 'http://example.com/official'
-
-        spot = Spot.new
-        spot.links.build(url:'http://example.com/twitter', link_type:Link.link_types[:twitter])
-        spot.links.build(url:'http://example.com/other', link_type:Link.link_types[:other])
-        spot.links.build(url:'http://example.com/official', link_type:Link.link_types[:official])
-        expect(spot.official_link.url).to eq 'http://example.com/official'
+  describe "official link method" do
+    let(:spot){ build :spot, links:links }
+    let(:link_twitter){ build :link, url:'http://twitter.com/hoge', link_type:Link.link_types[:twitter]}
+    let(:link_facebook){ build :link, url:'http://facebook.com/hoge', link_type:Link.link_types[:facebook]}
+    let(:link_official){ build :link, url:'http://example.com', link_type:Link.link_types[:official]}
+    let(:link_other){ build :link, url:'http://example.com/other', link_type:Link.link_types[:other]}
+    subject{ spot.official_link.url }
+    context "normal case" do
+      let(:links){[
+        link_twitter,
+        link_other,
+        link_official
+      ]}
+      it { is_expected.to eq link_official.url }
+    end
+    context "without official" do
+      let(:links){[
+        link_twitter,
+        link_other
+      ]}
+      it { is_expected.to eq link_twitter.url}
+    end
+    context "do not use other links" do
+      let(:links){[
+        link_other
+      ]}
+      it { is_expected.to be_nil }
+    end
+  end
+  describe "set_link_type method" do
+    context do
+      using RSpec::Parameterized::TableSyntax
+      where(:url, :expected_link_type) do
+        'https://twitter.com/mogya' | :twitter
+        'https://www.facebook.com/suumo.jp/' | :facebook
+        'https://facebook.com/suumo.jp/' | :facebook
+        'https://www.instagram.com/darvishsefat11/' | :instagram
+        'https://example.com/mogya' | :other
+        nil | :other
       end
-      it "without official" do
-        spot = Spot.new
-        spot.links.build(url:'http://example.com/other', link_type:Link.link_types[:other])
-        spot.links.build(url:'http://example.com/twitter', link_type:Link.link_types[:twitter])
-        expect(spot.official_link.url).to eq 'http://example.com/twitter'
-
-        spot = Spot.new
-        spot.links.build(url:'http://example.com/twitter', link_type:Link.link_types[:twitter])
-        spot.links.build(url:'http://example.com/other', link_type:Link.link_types[:other])
-        expect(spot.official_link.url).to eq 'http://example.com/twitter'
-      end
-      it "do not use other links" do
-        spot = Spot.new
-        spot.links.build(url:'http://example.com/other', link_type:Link.link_types[:other])
-        expect(spot.official_link).to be_nil
+      with_them do
+        subject{ Link.new(url:url) } # factory_girlだとafter_initializeが効かない？
+        let(:link){ build :link, url:url }
+        it do
+          expect(subject.link_type).to eq expected_link_type.to_s
+        end
       end
     end
   end

@@ -1,4 +1,7 @@
 FROM centos
+ENV LANG ja_JP.UTF-8
+RUN rm -f /etc/localtime
+RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN yum -y update && yum install -y \
   git patch which curl \
   postgresql postgresql-devel postgresql-libs \

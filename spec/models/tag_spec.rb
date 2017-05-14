@@ -20,4 +20,27 @@ RSpec.describe Tag, type: :model do
     end
   end
 
+  describe 'tags method' do
+    let!(:tag_category1){create :tag_category, name:'喫茶店'}
+    let!(:tag_category2){create :tag_category, name:'コワーキングスペース'}
+    let!(:tag_other){create :tag_other, name:'喫茶店'}
+    context "by array" do
+      let(:tags){ ['存在しないタグ','喫茶店','コワーキングスペース'] }
+      subject{ Tag::Category.tags(tags) }
+      it do
+        expect(subject['喫茶店']).to eq tag_category1
+        expect(subject['コワーキングスペース']).to eq tag_category2
+        expect(subject['存在しないタグ']).to be_nil
+      end
+    end
+    context "by string" do
+      let(:tags){ '存在しないタグ, 喫茶店,コワーキングスペース' }
+      subject{ Tag::Category.tags(tags) }
+      it do
+        expect(subject['喫茶店']).to eq tag_category1
+        expect(subject['コワーキングスペース']).to eq tag_category2
+        expect(subject['存在しないタグ']).to be_nil
+      end
+    end
+  end
 end

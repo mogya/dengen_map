@@ -40,6 +40,7 @@ class CreateModels < ActiveRecord::Migration
     end
 
     create_table :spot_infos do |t|
+      t.string :name
       t.string :type, index: true
       t.integer :value, index: true
       t.text :detail

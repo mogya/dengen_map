@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20170427053753) do
   end
 
   create_table "spot_infos", force: :cascade do |t|
+    t.string   "name"
     t.string   "type"
     t.integer  "value"
     t.text     "detail"
