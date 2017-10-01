@@ -268,21 +268,31 @@ export default {
         tasks.push( moAPI.search(params) );
       });
       Promise.all(tasks).then(
-        ([result1,result2]) => {
-          this.message = null;
-          this.spots.splice(0, this.spots.length);
-          this.addSpots(result1.data);
-          this.addSpots(result2.data);
-          this.storeSettings();
-          this.loading = false;
+        (results) => {
+          if (results[0].data.status === 'OK' && results[1].data.status === 'OK'){
+            this.message = null;
+            this.spots.splice(0, this.spots.length);
+            this.addSpots(results[0].data);
+            this.addSpots(results[1].data);
+            this.storeSettings();
+            this.loading = false;
+          }else{
+            results.forEach((result)=>{
+              if (result.data.status === 400){
+                this.onErrorTooMuchSpots()
+                this.loading = false;
+              }else{
+                errorNotification(result);
+                errorNotification(result.message);
+                errorNotification(result.data.message);
+                this.loading = false;
+              }
+            })
+          }
         },
         (err)=>{
           errorNotification(err);
           errorNotification(err.message);
-          if (err.response) {
-            errorNotification(err.response.data.message);
-            this.onErrorTooMuchSpots();
-          };
           this.loading = false;
         }
       );
@@ -304,7 +314,9 @@ export default {
     addSpots(data){
       data.results.forEach((spot)=>{
         if (this.spotFilter(spot)){
-          this.spots.push(new MoSpot(spot));
+          if (this.spots.findIndex( (s)=>{ s.id != spot.id } )){
+            this.spots.push(new MoSpot(spot));
+          }
         }else{
           // console.log(`skiped: ${spot.title}(${spot.entry_id})`);
         }

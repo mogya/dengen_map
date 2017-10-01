@@ -20,7 +20,7 @@
         :draggable="false"
       ></gmap-marker>
       <gmap-marker
-        v-for="spot in spots"
+        v-for="spot in spots" :key='spot.id'
         :position="{ lat: spot.latitude, lng: spot.longitude }"
         :title="spot.name"
         :icon="spot.powerframeIcon"
