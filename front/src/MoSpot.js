@@ -14,7 +14,7 @@ export default class MoSpot extends Object{
     delete this.wireless;
 
     this.icon = spot.icon.replace('[size]',45);
-    this.powerframeIcon = spot.icon_powerframe.replace('[size]',45).replace('_ok_','_none_');
+    this.powerframeIcon = spot.icon_powerframe.replace('[size]',45).replace('_ok_','_none_').replace('_unknown_','_none_');
     delete this.icon_powerframe;
 
     this.PcUrl = spot.url_pc;

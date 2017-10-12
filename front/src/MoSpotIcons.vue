@@ -55,7 +55,7 @@ export default {
         icon.size = 30;
         icon.cssPos = -1*icon.size*icon.pos;
         // 古い電源タグと新しい電源タグが混在している場合の経過措置
-        if (tag == '電源:お客様用コンセント' || tag == '電源:壁コンセント' || tag == '電源:USB' ){
+        if (tag === '電源:お客様用コンセント' || tag === '電源:壁コンセント' || tag === '電源:USB'){
           ret = ret.filter((icon)=>{
             return (icon.title!='電源:OK' && icon.title!='使えた<br />実績あり' )
           });

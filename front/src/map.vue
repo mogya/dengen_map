@@ -253,7 +253,7 @@ export default {
       this.loading = true;
       this.message = null;
       let tasks = [];
-      ['電源OK','電源:実績あり'].forEach((power_tag)=>{
+      ['電源OK','電源:実績あり','電源:お客様用コンセント','電源:壁コンセント','電源:USB'].forEach((power_tag)=>{
         let params = {
           tag: power_tag,
           n: this.momap.bounds.n,
@@ -269,26 +269,27 @@ export default {
       });
       Promise.all(tasks).then(
         (results) => {
-          if (results[0].data.status === 'OK' && results[1].data.status === 'OK'){
+          let any_error = false;
+          results.forEach((result)=>{
+            if (result.data.status === 400){
+              this.onErrorTooMuchSpots()
+              any_error = true;
+            }else if (result.data.status !== 'OK'){
+              errorNotification(result);
+              errorNotification(result.message);
+              errorNotification(result.data.message);
+              any_error = true;
+            }
+          },this)
+          if (!any_error){
             this.message = null;
             this.spots.splice(0, this.spots.length);
-            this.addSpots(results[0].data);
-            this.addSpots(results[1].data);
-            this.storeSettings();
-            this.loading = false;
-          }else{
             results.forEach((result)=>{
-              if (result.data.status === 400){
-                this.onErrorTooMuchSpots()
-                this.loading = false;
-              }else{
-                errorNotification(result);
-                errorNotification(result.message);
-                errorNotification(result.data.message);
-                this.loading = false;
-              }
-            })
+              this.addSpots(result.data.results);
+            },this);
+            this.storeSettings();
           }
+          this.loading = false;
         },
         (err)=>{
           errorNotification(err);
@@ -311,21 +312,19 @@ export default {
         storage.set('netcafe','false');
       }
     },
-    addSpots(data){
-      data.results.forEach((spot)=>{
+    addSpots(spots){
+      spots.forEach((spot)=>{
         if (this.spotFilter(spot)){
-          if (this.spots.findIndex( (s)=>{ s.id != spot.id } )){
+          let v = this.spots.findIndex( (s)=>{
+            return (s.id === spot.entry_id)
+          } );
+          if (v < 0){
             this.spots.push(new MoSpot(spot));
           }
-        }else{
-          // console.log(`skiped: ${spot.title}(${spot.entry_id})`);
         }
-      });
+      },this);
     },
     spotFilter(spot){
-      // console.log(`${spot.entry_id}:${spot.title}`);
-      // console.log(`showNetCafe:${this.momenu.showNetCafe}`);
-      // console.log(`NetCafe:${spot.tag.indexOf('ネットカフェ')}`);
       if (this.momenu.pcMode){
         if (0 > spot.tag.indexOf('用途:ノマド') ){
           return false;
