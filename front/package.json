@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "axios": ">=0.15.3",
+    "babel-polyfill": "^6.26.0",
     "fontello-webpack-plugin": "^0.4.6",
     "marker-clusterer-plus": ">=2.1.4",
-    "promise-polyfill": ">=6.0.2",
     "sanitize.css": ">=5.0.0",
     "vue": ">=2.2.1",
     "vue-router": ">=2.3.1",
