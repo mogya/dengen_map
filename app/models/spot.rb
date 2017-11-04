@@ -1,6 +1,7 @@
 class Spot < ApplicationRecord
   include Postgis
   enum status: [ :status_hidden, :status_open, :status_pending, :status_closed, :status_down ]
+  has_one :ee_datum
   has_many :links
   has_many :spot_infos
   has_many :smoke_infos, class_name: 'SpotInfo::Smoke'
