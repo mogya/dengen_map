@@ -1,28 +1,32 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# rails
 
-Things you may want to cover:
+## docker development
 
-* Ruby version
+```
+dengen_map]$ docker-compose up -d
+Starting dengenmap_data_1 ...
+Starting dengenmap_data_1 ... done
+Starting dengenmap_db_1 ...
+Starting dengenmap_db_1 ... done
+Recreating dengenmap_app_1 ...
+Recreating dengenmap_app_1 ... done
+dengen_map]$ docker exec -it dengenmap_app_1 /bin/bash
+[root@6f9b7e7a2a38 app]# rails -v
+Rails 5.0.2
+```
 
-* System dependencies
+# vue.js
 
-* Configuration
+Mac上でそのまま開発可能
 
-* Database creation
+インクリメンタル開発
+```
+yarn dev
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+productionファイルの生成
+```
+yarn build
+```
