@@ -22,3 +22,4 @@ bower.json
 .powenv
 users.yml
 db/postgres
+.byebug_history

@@ -18,10 +18,10 @@ ActiveRecord::Schema.define(version: 20171104122741) do
 
   create_table "ee_data", force: :cascade do |t|
     t.integer  "spot_id"
+    t.string   "title"
     t.string   "url_title"
     t.string   "address"
     t.string   "tel"
-    t.string   "tel_long"
     t.float    "latitude"
     t.float    "longitude"
     t.string   "url_pc"
@@ -29,15 +29,14 @@ ActiveRecord::Schema.define(version: 20171104122741) do
     t.string   "wireless"
     t.string   "powersupply"
     t.string   "tag"
+    t.string   "category"
     t.text     "other"
     t.text     "images"
     t.text     "reference_urls"
     t.text     "private_data"
     t.string   "status"
     t.datetime "ee_update_at"
-    t.datetime "ee_created_at"
     t.datetime "expiration_date"
-    t.datetime "edit_date"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["spot_id"], name: "index_ee_data_on_spot_id", using: :btree
@@ -54,7 +53,6 @@ ActiveRecord::Schema.define(version: 20171104122741) do
   end
 
   create_table "spot_infos", force: :cascade do |t|
-    t.string   "name"
     t.string   "type"
     t.integer  "value"
     t.text     "detail"
@@ -68,16 +66,16 @@ ActiveRecord::Schema.define(version: 20171104122741) do
   end
 
   create_table "spots", force: :cascade do |t|
-    t.string    "name"
-    t.integer   "status",                                                                        default: 0, null: false
-    t.text      "address"
-    t.string    "tel"
-    t.integer   "powersupply_score",                                                             default: 0
-    t.integer   "ee_id"
-    t.integer   "ee_url_title"
-    t.datetime  "created_at",                                                                                null: false
-    t.datetime  "updated_at",                                                                                null: false
-    t.geography "lonlat",            limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.string   "name"
+    t.integer  "status",                                                     default: 0, null: false
+    t.text     "address"
+    t.string   "tel"
+    t.integer  "powersupply_score",                                          default: 0
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
+    t.geometry "lonlat",            limit: {:srid=>4326, :type=>"st_point"}
+    t.integer  "ee_id"
+    t.index ["ee_id"], name: "index_spots_on_ee_id", using: :btree
     t.index ["lonlat"], name: "index_spots_on_lonlat", using: :gist
     t.index ["powersupply_score"], name: "index_spots_on_powersupply_score", using: :btree
     t.index ["status"], name: "index_spots_on_status", using: :btree
