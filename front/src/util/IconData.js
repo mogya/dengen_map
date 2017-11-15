@@ -12,6 +12,7 @@ export default {
   "電源:お客様用コンセント": {pos:0, text:'お客様用<br />コンセント'},
   "電源:壁コンセント": {pos:2, text:'壁コンセント'},
   "電源:USB": {pos:27, text:'USB<br />コンセント'},
+  "電源:充電器貸出": {pos:28, text:'充電器貸し出しあり'},
 
   "ソフトバンクWi-Fi": {pos:10, text:'Softbank<br />Wi-Fi'},
   "docomo Wi-Fi": {pos:11, text:'ドコモ<br />Wi-Fi'},
