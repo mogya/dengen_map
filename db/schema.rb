@@ -10,11 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170427053753) do
+ActiveRecord::Schema.define(version: 20171104122741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "ee_data", force: :cascade do |t|
+    t.integer  "spot_id"
+    t.string   "title"
+    t.string   "url_title"
+    t.string   "address"
+    t.string   "tel"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "url_pc"
+    t.string   "url_mobile"
+    t.string   "wireless"
+    t.string   "powersupply"
+    t.string   "tag"
+    t.string   "category"
+    t.text     "other"
+    t.text     "images"
+    t.text     "reference_urls"
+    t.text     "private_data"
+    t.string   "status"
+    t.datetime "ee_update_at"
+    t.datetime "expiration_date"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["spot_id"], name: "index_ee_data_on_spot_id", using: :btree
+  end
 
   create_table "links", force: :cascade do |t|
     t.string   "url"
@@ -40,14 +66,16 @@ ActiveRecord::Schema.define(version: 20170427053753) do
   end
 
   create_table "spots", force: :cascade do |t|
-    t.string    "name"
-    t.integer   "status",                                                                        default: 0, null: false
-    t.text      "address"
-    t.string    "tel"
-    t.integer   "powersupply_score",                                                             default: 0
-    t.datetime  "created_at",                                                                                null: false
-    t.datetime  "updated_at",                                                                                null: false
-    t.geography "lonlat",            limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.string   "name"
+    t.integer  "status",                                                     default: 0, null: false
+    t.text     "address"
+    t.string   "tel"
+    t.integer  "powersupply_score",                                          default: 0
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
+    t.geometry "lonlat",            limit: {:srid=>4326, :type=>"st_point"}
+    t.integer  "ee_id"
+    t.index ["ee_id"], name: "index_spots_on_ee_id", using: :btree
     t.index ["lonlat"], name: "index_spots_on_lonlat", using: :gist
     t.index ["powersupply_score"], name: "index_spots_on_powersupply_score", using: :btree
     t.index ["status"], name: "index_spots_on_status", using: :btree

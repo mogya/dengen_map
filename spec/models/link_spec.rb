@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Link, type: :model do
-  describe "links" do
+  xdescribe "links" do
     context "official link method" do
       it "normal case" do
         spot = Spot.new

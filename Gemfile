@@ -21,6 +21,8 @@ gem 'aws-ses', :require => 'aws/ses'
 gem 'daemons'
 gem 'yaml_db'
 
+gem 'addressable'
+
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
@@ -30,6 +32,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-parameterized'
+  gem 'rspec-json_expectations'
   gem 'factory_girl_rails'
   gem "capybara"
 end
