@@ -1,6 +1,6 @@
 namespace :ee do
   desc "旧システムからデータをインポートします"
-  task :import => :debug do
+  task :import => :common do
     query_limit = 500
     recent_api = Addressable::Template.new("https://oasis.mogya.com/api2/v0/recent_entries/{?query*}")
     # uri = recent_api.expand({query:{}})

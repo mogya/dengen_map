@@ -1,4 +1,11 @@
-== README
+# System dependencies
+
+- api server
+  - rails
+  - postgresql
+  - Postgis
+- frontend
+  - vue.js
 
 # rails
 
@@ -15,6 +22,30 @@ Recreating dengenmap_app_1 ... done
 dengen_map]$ docker exec -it dengenmap_app_1 /bin/bash
 [root@6f9b7e7a2a38 app]# rails -v
 Rails 5.0.2
+```
+
+## Database creation
+
+```
+# rails dbconsole
+=# CREATE DATABASE production;
+=# \c production
+You are now connected to database "production" as user "dengenmap".
+production=# CREATE EXTENSION postgis;
+# rake db:migrate RAILS_ENV=production
+# rake db:seed RAILS_ENV=production
+```
+
+## How to run the test suite
+
+```
+bin/rake spec SPEC_OPTS='--format documentation --fail-fast' SPEC=""
+```
+
+## Services (job queues, cache servers, search engines, etc.)
+
+```
+bin/rails unicorn:start
 ```
 
 # vue.js
