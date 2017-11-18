@@ -2,7 +2,7 @@ namespace :ee do
   desc "旧システムからデータをインポートします"
   task :import => :common do
     query_limit = 500
-    recent_api = Addressable::Template.new("https://oasis.mogya.com/api2/v0/recent_entries/{?query*}")
+    recent_api = Addressable::Template.new("https://oasis.mogya.com/api/v0/recent_entries/{?query*}")
     # uri = recent_api.expand({query:{}})
     uri = recent_api.expand({
       query:{
@@ -24,7 +24,7 @@ namespace :ee do
           break if json['results'].size == 0
           json['results'].each do |entry|
             data = EeDatum.update_or_create_by_json(entry)
-            logger.debug "#{data.spot_id}:#{data.title}(#{data.ee_update_at.strftime('%Y%m%d%H%M%S')})"
+            logger.info "#{data.spot_id}:#{data.title}(#{data.ee_update_at.strftime('%Y%m%d%H%M%S')})"
             uri = recent_api.expand({
               query:{
                 before: data.ee_update_at.strftime('%Y%m%d%H%M%S'),
@@ -32,8 +32,8 @@ namespace :ee do
               }
             })
           end
-          logger.debug "EeData count:#{EeDatum.count}"
-          logger.debug "next api url:#{uri.to_s}"
+          logger.info "EeData count:#{EeDatum.count}"
+          logger.info "next api url:#{uri.to_s}"
         else
           logger.error "#{json['status']}:#{json['message']}"
         end
