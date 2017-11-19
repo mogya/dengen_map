@@ -4,7 +4,7 @@ class Spot < ApplicationRecord
   belongs_to :prime_category, class_name:'Tag::Category'
   delegate 'open?', to: :ee_datum
   delegate :url_pc, :wireless, :powersupply, :other,
-            :tag, :status, :category,
+            :tag, :status, :category, :url_title,
             :expiration_date, :ee_update_at,
             to: :ee_datum
 
@@ -26,6 +26,10 @@ class Spot < ApplicationRecord
 
   def latitude
     lonlat.try(:y)
+  end
+
+  def mo_url
+    "https://oasis.mogya.com/spot/#{url_title}"
   end
 
   def categories
