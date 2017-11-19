@@ -36,7 +36,7 @@ class Spot < ApplicationRecord
   end
 
   def icon
-    prime_category(prime_category:true).image_path.sub('[type]','none')
+    prime_category(with_image:true).image_path.sub('[type]','none')
   end
 
   def powerframe_icon
@@ -48,7 +48,7 @@ class Spot < ApplicationRecord
     elsif ( tag.index('電源NG') || tag.index('電源:NG') )
       type = :ng
     end
-    prime_category(prime_category:true).image_path.sub('[type]',type.to_s)
+    prime_category(with_image:true).image_path.sub('[type]',type.to_s)
   end
 
   # has_many :links
