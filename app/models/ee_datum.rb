@@ -33,6 +33,10 @@ class EeDatum < ApplicationRecord
     datum
   end
 
+  def categories
+    category.split(/ *, */)
+  end
+
   def update_spot
     if self.spot.nil?
       self.spot = Spot.new(ee_id:self.spot_id)
@@ -44,6 +48,7 @@ class EeDatum < ApplicationRecord
     self.spot.tel = self.tel
     self.spot.ee_id = self.spot_id
     self.spot.lonlat = "POINT (#{self.longitude} #{self.latitude})"
+    self.spot.prime_category = Tag::Category.prime_category(categories, true)
     self.spot.save
   end
 
@@ -52,5 +57,4 @@ class EeDatum < ApplicationRecord
     return false if expiration_date && (expiration_date < Time.zone.now)
     return true
   end
-
 end

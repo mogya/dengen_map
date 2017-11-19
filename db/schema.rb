@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171104122741) do
+ActiveRecord::Schema.define(version: 20171119133333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20171104122741) do
     t.datetime "updated_at",                                                             null: false
     t.geometry "lonlat",            limit: {:srid=>4326, :type=>"st_point"}
     t.integer  "ee_id"
+    t.integer  "prime_category_id"
     t.index ["ee_id"], name: "index_spots_on_ee_id", using: :btree
     t.index ["lonlat"], name: "index_spots_on_lonlat", using: :gist
     t.index ["powersupply_score"], name: "index_spots_on_powersupply_score", using: :btree
@@ -99,6 +100,7 @@ ActiveRecord::Schema.define(version: 20171104122741) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.index ["importance"], name: "index_tags_on_importance", using: :btree
+    t.index ["name"], name: "index_tags_on_name", using: :btree
     t.index ["parent_id"], name: "index_tags_on_parent_id", using: :btree
     t.index ["type"], name: "index_tags_on_type", using: :btree
   end

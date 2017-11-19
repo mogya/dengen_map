@@ -1,6 +1,7 @@
 class Spot < ApplicationRecord
   enum status: [ :status_hidden, :status_open, :status_pending, :status_closed, :status_down ]
   has_one :ee_datum, foreign_key:'spot_id', primary_key:'ee_id'
+  belongs_to :prime_category, class_name:'Tag::Category'
   delegate 'open?', to: :ee_datum
   delegate :url_pc, :wireless, :powersupply, :other,
             :tag, :status, :category,
@@ -27,16 +28,12 @@ class Spot < ApplicationRecord
     lonlat.try(:y)
   end
 
-  def prime_category(with_image=false)
-    Tag::Category.prime_category(categories, with_image)
-  end
-
   def categories
-    category.split(/ *, */)
+    ee_datum.categories
   end
 
   def icon
-    prime_category(with_image:true).image_path.sub('[type]','none')
+    prime_category.image_path.sub('[type]','none')
   end
 
   def powerframe_icon
@@ -48,7 +45,7 @@ class Spot < ApplicationRecord
     elsif ( tag.index('電源NG') || tag.index('電源:NG') )
       type = :ng
     end
-    prime_category(with_image:true).image_path.sub('[type]',type.to_s)
+    prime_category.image_path.sub('[type]',type.to_s)
   end
 
   # has_many :links
@@ -112,7 +109,7 @@ class Spot < ApplicationRecord
                     ST_Transform( ST_GeomFromText('POINT(#{longitude} #{latitude})',4326), 3099)
                   )/1000 AS distance
     EOT
-    q = Spot.where(geo_query).includes(:ee_datum).select('spots.*',distance_column).order('distance')
+    q = Spot.where(geo_query).includes(:ee_datum,:prime_category).select('spots.*',distance_column).order('distance')
     if limit
       q = q.limit(limit)
     end
