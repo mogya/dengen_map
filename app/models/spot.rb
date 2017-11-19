@@ -12,8 +12,8 @@ class Spot < ApplicationRecord
               tags:[], categories:[], wireless:[],
               limit:nil, contains_invalid:false
               )
-    latitude = latitude || (n+s)/2
-    longitude = longitude || (w+e)/2
+    latitude = latitude || (n+s)/2.0
+    longitude = longitude || (w+e)/2.0
 
     q = spots_in_range_query(n:n, s:s, w:w, e:e, latitude:latitude, longitude:longitude, limit:limit)
     spots_in_range_filter(q, tags:tags, categories:categories, wireless:wireless, contains_invalid:contains_invalid)
@@ -25,6 +25,30 @@ class Spot < ApplicationRecord
 
   def latitude
     lonlat.try(:y)
+  end
+
+  def prime_category(with_image=false)
+    Tag::Category.prime_category(categories, with_image)
+  end
+
+  def categories
+    category.split(/ *, */)
+  end
+
+  def icon
+    prime_category(prime_category:true).image_path.sub('[type]','none')
+  end
+
+  def powerframe_icon
+    type = :unknown
+    if ( tag.index('電源OK') ||tag.index('電源:お客様用コンセント') )
+      type = :ok
+    elsif ( tag.index('電源:実績あり')||tag.index('電源:壁コンセント') )
+      type = :ok
+    elsif ( tag.index('電源NG') || tag.index('電源:NG') )
+      type = :ng
+    end
+    prime_category(prime_category:true).image_path.sub('[type]',type.to_s)
   end
 
   # has_many :links
@@ -75,10 +99,6 @@ class Spot < ApplicationRecord
   # def official_link
   #   Link.official_link(links)
   # end
-
-  def to_s
-    name
-  end
 
   private
 

@@ -3,105 +3,476 @@
 #
 # Examples:
 #
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+#   cities = City.create([{ id: 1, name: 'Chicago' }, { id: 1, name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-Tag::Category.create(name:'ファストフード', parent_id:1)
-Tag::Category.create(name:'喫茶店', parent_id:2)
-Tag::Category.create(name:'ネットカフェ', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:3)
-Tag::Category.create(name:'レンタルオフィス', image:'http://oasis.mogya.com/images/design/spot_icon_20_[type]_[size]px.png', parent_id:5)
-Tag::Category.create(name:'その他', image:'http://oasis.mogya.com/images/design/spot_icon_23_[type]_[size]px.png', parent_id:6)
-Tag::Category.create(name:'飲食店', image:'http://oasis.mogya.com/images/design/spot_icon_19_[type]_[size]px.png', parent_id:4)
-Tag::Category.create(name:'図書館', image:'http://oasis.mogya.com/images/design/spot_icon_24_[type]_[size]px.png', parent_id:16)
-Tag::Category.create(name:'マクドナルド', image:'http://oasis.mogya.com/images/design/spot_icon_01_[type]_[size]px.png', parent_id:1)
-Tag::Category.create(name:'ミスタードーナツ', image:'http://oasis.mogya.com/images/design/spot_icon_05_[type]_[size]px.png', parent_id:5)
-Tag::Category.create(name:'モスバーガー', image:'http://oasis.mogya.com/images/design/spot_icon_02_[type]_[size]px.png', parent_id:2)
-Tag::Category.create(name:'ロッテリア', image:'http://oasis.mogya.com/images/design/spot_icon_03_[type]_[size]px.png', parent_id:3)
-Tag::Category.create(name:'バーガーキング', image:'http://oasis.mogya.com/images/design/spot_icon_06_[type]_[size]px.png', parent_id:8)
-Tag::Category.create(name:'ウェンディーズ', image:'http://oasis.mogya.com/images/design/spot_icon_06_[type]_[size]px.png', parent_id:9)
-Tag::Category.create(name:'ケンタッキーフライドチキン', image:'http://oasis.mogya.com/images/design/spot_icon_04_[type]_[size]px.png', parent_id:4)
-Tag::Category.create(name:'サブウェイ', image:'http://oasis.mogya.com/images/design/spot_icon_06_[type]_[size]px.png', parent_id:7)
-Tag::Category.create(name:'待合室・ラウンジ', image:'http://oasis.mogya.com/images/design/spot_icon_23_[type]_[size]px.png', parent_id:15)
-Tag::Category.create(name:'フレッシュネスバーガー', image:'http://oasis.mogya.com/images/design/spot_icon_06_[type]_[size]px.png', parent_id:11)
-Tag::Category.create(name:'ファーストキッチン', image:'http://oasis.mogya.com/images/design/spot_icon_06_[type]_[size]px.png', parent_id:10)
-Tag::Category.create(name:'銀座ルノアール', image:'http://oasis.mogya.com/images/design/spot_icon_07_[type]_[size]px.png', parent_id:1)
-Tag::Category.create(name:'ドトール/エクセルシオール', image:'http://oasis.mogya.com/images/design/spot_icon_12_[type]_[size]px.png', parent_id:7)
-Tag::Category.create(name:'タリーズコーヒー', image:'http://oasis.mogya.com/images/design/spot_icon_11_[type]_[size]px.png', parent_id:6)
-Tag::Category.create(name:'スターバックス', image:'http://oasis.mogya.com/images/design/spot_icon_08_[type]_[size]px.png', parent_id:3)
-Tag::Category.create(name:'シャノアール（ベローチェ）', image:'http://oasis.mogya.com/images/design/spot_icon_14_[type]_[size]px.png', parent_id:9)
-Tag::Category.create(name:'ゲラゲラ', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:11)
-Tag::Category.create(name:'ゆう遊空間', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:6)
-Tag::Category.create(name:'マンボー', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:16)
-Tag::Category.create(name:'アプレシオ', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:2)
-Tag::Category.create(name:'スペースクリエイト自遊空間', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:14)
-Tag::Category.create(name:'快活CLUB', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:17)
-Tag::Category.create(name:'エアーズカフェ', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:9)
-Tag::Category.create(name:'らくだ', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:7)
-Tag::Category.create(name:'アイ・カフェ', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:8)
-Tag::Category.create(name:'まんが広場', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:5)
-Tag::Category.create(name:'まんがランド', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:4)
-Tag::Category.create(name:'バグース', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:15)
-Tag::Category.create(name:'コミックバスター', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:12)
-Tag::Category.create(name:'メディアカフェポパイ', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:1)
-Tag::Category.create(name:'ほっとステーション', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:3)
-Tag::Category.create(name:'サイバック', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:13)
-Tag::Category.create(name:'ゲオカフェ', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:10)
-Tag::Category.create(name:'デスカット', parent_id:1)
-Tag::Category.create(name:'珈琲館', image:'http://oasis.mogya.com/images/design/spot_icon_15_[type]_[size]px.png', parent_id:10)
-Tag::Category.create(name:'プロント', image:'http://oasis.mogya.com/images/design/spot_icon_13_[type]_[size]px.png', parent_id:8)
-Tag::Category.create(name:'カフェ・ド・クリエ', image:'http://oasis.mogya.com/images/design/spot_icon_09_[type]_[size]px.png', parent_id:4)
-Tag::Category.create(name:'シアトルズベスト', image:'http://oasis.mogya.com/images/design/spot_icon_10_[type]_[size]px.png', parent_id:5)
-Tag::Category.create(name:'喫茶店(その他)', image:'http://oasis.mogya.com/images/design/spot_icon_17_[type]_[size]px.png', parent_id:12)
-Tag::Category.create(name:'ファストフード(その他)', image:'http://oasis.mogya.com/images/design/spot_icon_06_[type]_[size]px.png', parent_id:12)
-Tag::Category.create(name:'その他レンタルオフィス', image:'http://oasis.mogya.com/images/design/spot_icon_20_[type]_[size]px.png', parent_id:2)
-Tag::Category.create(name:'ネットカフェ(その他)', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:19)
-Tag::Category.create(name:'上島珈琲店', image:'http://oasis.mogya.com/images/design/spot_icon_16_[type]_[size]px.png', parent_id:11)
-Tag::Category.create(name:'コンビニエンスストア', image:'http://oasis.mogya.com/images/design/spot_icon_30_[type]_[size]px.png', parent_id:7)
-Tag::Category.create(name:'メイドカフェなど(萌)', image:'http://oasis.mogya.com/images/design/spot_icon_22_[type]_[size]px.png', parent_id:11)
-Tag::Category.create(name:'飲食店(その他)', image:'http://oasis.mogya.com/images/design/spot_icon_19_[type]_[size]px.png', parent_id:5)
-Tag::Category.create(name:'公共施設', image:'http://oasis.mogya.com/images/design/spot_icon_23_[type]_[size]px.png', parent_id:14)
-Tag::Category.create(name:'バー', image:'http://oasis.mogya.com/images/design/spot_icon_19_[type]_[size]px.png', parent_id:2)
-Tag::Category.create(name:'ワイプ', image:'http://oasis.mogya.com/images/design/spot_icon_18_[type]_[size]px.png', parent_id:18)
-Tag::Category.create(name:'サンマルクカフェ', image:'http://oasis.mogya.com/images/design/spot_icon_25_[type]_[size]px.png', parent_id:2)
-Tag::Category.create(name:'カラオケ', image:'http://oasis.mogya.com/images/design/spot_icon_21_[type]_[size]px.png', parent_id:3)
-Tag::Category.create(name:'居酒屋', image:'http://oasis.mogya.com/images/design/spot_icon_19_[type]_[size]px.png', parent_id:6)
-Tag::Category.create(name:'クリスピークリームドーナツ', image:'http://oasis.mogya.com/images/design/spot_icon_06_[type]_[size]px.png', parent_id:6)
-Tag::Category.create(name:'カー用品店', parent_id:5)
-Tag::Category.create(name:'カーディーラー', parent_id:4)
-Tag::Category.create(name:'フィットネスクラブ', parent_id:9)
-Tag::Category.create(name:'百貨店', image:'http://oasis.mogya.com/images/design/spot_icon_34_[type]_[size]px.png', parent_id:17)
-Tag::Category.create(name:'ホテル', image:'http://oasis.mogya.com/images/design/spot_icon_23_[type]_[size]px.png', parent_id:10)
-Tag::Category.create(name:'献血ルーム', image:'http://oasis.mogya.com/images/design/spot_icon_23_[type]_[size]px.png', parent_id:12)
-Tag::Category.create(name:'理髪店・美容院', image:'http://oasis.mogya.com/images/design/spot_icon_33_[type]_[size]px.png', parent_id:13)
-Tag::Category.create(name:'コワーキングスペース', image:'http://oasis.mogya.com/images/design/spot_icon_26_[type]_[size]px.png', parent_id:6)
-Tag::Category.create(name:'イートインスペース', parent_id:2)
-Tag::Category.create(name:'てもみん', image:'http://oasis.mogya.com/images/design/spot_icon_31_[type]_[size]px.png', parent_id:1)
-Tag::Category.create(name:'ネイルサロン', image:'http://oasis.mogya.com/images/design/spot_icon_32_[type]_[size]px.png', parent_id:8)
-Tag::Category.create(name:'ファミリーマート', image:'http://oasis.mogya.com/images/design/spot_icon_29_[type]_[size]px.png', parent_id:2)
-Tag::Category.create(name:'ローソン', image:'http://oasis.mogya.com/images/design/spot_icon_27_[type]_[size]px.png', parent_id:3)
-Tag::Category.create(name:'セブンイレブン', image:'http://oasis.mogya.com/images/design/spot_icon_28_[type]_[size]px.png', parent_id:1)
-Tag::Category.create(name:'ファミレス', parent_id:3)
-Tag::Category.create(name:'ココイチ', parent_id:1)
-Tag::Category.create(name:'フードコート', parent_id:4)
-Tag::Other.create(name:'power_ok', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Other.create(name:'power_ng', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Other.create(name:'power_ok2', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Other.create(name:'power_netcafe', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Other.create(name:'nosmoke', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Other.create(name:'smoke', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Other.create(name:'smoke_separate', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Other.create(name:'qi', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Other.create(name:'eatinspace', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'softbank', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'docomo', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'au', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'livedoor', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'hotspot', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'flets', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'bbmobile', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'freespot', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'cable', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'other', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'starbucks', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'familymart', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'lawson', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
-Tag::Wifi.create(name:'seveneleven', image:'http://oasis.mogya.com/images/design/info_icon_sprite_{$size}px.png')
+cat_fastfood = Tag::Category.find_or_create_by({
+  name: "ファストフード",
+  importance: 5,
+})
+cat_cafe = Tag::Category.find_or_create_by({
+  name: "喫茶店",
+  importance: 5,
+})
+cat_netcafe = Tag::Category.find_or_create_by({
+  name: "ネットカフェ",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 5,
+})
+cat_rentaloffice = Tag::Category.find_or_create_by({
+  name: "レンタルオフィス",
+  image: "spot_icon_20_[type]_[size]px.png",
+  importance: 5,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "マクドナルド",
+  image: "spot_icon_01_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "ミスタードーナツ",
+  image: "spot_icon_05_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "モスバーガー",
+  image: "spot_icon_02_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "ロッテリア",
+  image: "spot_icon_03_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "バーガーキング",
+  image: "spot_icon_06_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "ウェンディーズ",
+  image: "spot_icon_06_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "ケンタッキーフライドチキン",
+  image: "spot_icon_04_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "サブウェイ",
+  image: "spot_icon_06_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "フレッシュネスバーガー",
+  image: "spot_icon_06_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "ファーストキッチン",
+  image: "spot_icon_06_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "銀座ルノアール",
+  image: "spot_icon_07_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "ドトール/エクセルシオール",
+  image: "spot_icon_12_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "タリーズコーヒー",
+  image: "spot_icon_11_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "スターバックス",
+  image: "spot_icon_08_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "シャノアール（ベローチェ）",
+  image: "spot_icon_14_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "ゲラゲラ",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "ゆう遊空間",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "マンボー",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "アプレシオ",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "スペースクリエイト自遊空間",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "快活CLUB",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "エアーズカフェ",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "らくだ",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "アイ・カフェ",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "まんが広場",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "まんがランド",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "バグース",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "コミックバスター",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "メディアカフェポパイ",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "ほっとステーション",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "サイバック",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "ゲオカフェ",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_rentaloffice,
+  name: "デスカット",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "珈琲館",
+  image: "spot_icon_15_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "プロント",
+  image: "spot_icon_13_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "カフェ・ド・クリエ",
+  image: "spot_icon_09_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "シアトルズベスト",
+  image: "spot_icon_10_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "喫茶店(その他)",
+  image: "spot_icon_17_[type]_[size]px.png",
+  importance: 9,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "ファストフード(その他)",
+  image: "spot_icon_06_[type]_[size]px.png",
+  importance: 9,
+})
+cat_other = Tag::Category.find_or_create_by({
+  name: "その他",
+  image: "spot_icon_23_[type]_[size]px.png",
+  importance: 4,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "待合室・ラウンジ",
+  image: "spot_icon_23_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "図書館",
+  image: "spot_icon_24_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_rentaloffice,
+  name: "その他レンタルオフィス",
+  image: "spot_icon_20_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "ネットカフェ(その他)",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 9,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "上島珈琲店",
+  image: "spot_icon_16_[type]_[size]px.png",
+  importance: 10,
+})
+cat_convinience_store = Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "コンビニエンスストア",
+  image: "spot_icon_30_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "メイドカフェなど(萌)",
+  image: "spot_icon_22_[type]_[size]px.png",
+  importance: 10,
+})
+cat_foods = Tag::Category.find_or_create_by({
+  name: "飲食店",
+  image: "spot_icon_19_[type]_[size]px.png",
+  importance: 5,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_foods,
+  name: "飲食店(その他)",
+  image: "spot_icon_19_[type]_[size]px.png",
+  importance: 9,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "公共施設",
+  image: "spot_icon_23_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_foods,
+  name: "バー",
+  image: "spot_icon_19_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_netcafe,
+  name: "ワイプ",
+  image: "spot_icon_18_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_cafe,
+  name: "サンマルクカフェ",
+  image: "spot_icon_25_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "カラオケ",
+  image: "spot_icon_21_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_foods,
+  name: "居酒屋",
+  image: "spot_icon_19_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_fastfood,
+  name: "クリスピークリームドーナツ",
+  image: "spot_icon_06_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "カー用品店",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "カーディーラー",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "フィットネスクラブ",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "百貨店",
+  image: "spot_icon_34_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "ホテル",
+  image: "spot_icon_23_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "献血ルーム",
+  image: "spot_icon_23_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "理髪店・美容院",
+  image: "spot_icon_33_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "コワーキングスペース",
+  image: "spot_icon_26_[type]_[size]px.png",
+  importance: 11,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "イートインスペース",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "てもみん",
+  image: "spot_icon_31_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_other,
+  name: "ネイルサロン",
+  image: "spot_icon_32_[type]_[size]px.png",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_convinience_store,
+  name: "ファミリーマート",
+  image: "spot_icon_29_[type]_[size]px.png",
+  importance: 15,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_convinience_store,
+  name: "ローソン",
+  image: "spot_icon_27_[type]_[size]px.png",
+  importance: 15,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_convinience_store,
+  name: "セブンイレブン",
+  image: "spot_icon_28_[type]_[size]px.png",
+  importance: 15,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_foods,
+  name: "ファミレス",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_foods,
+  name: "ココイチ",
+  importance: 10,
+})
+Tag::Category.find_or_create_by({
+  parent: cat_foods,
+  name: "フードコート",
+  importance: 10,
+})
+
+Tag::Other.find_or_create_by({ name:'power_ok', image:'info_icon_sprite_{$size}px.png' })
+Tag::Other.find_or_create_by({ name:'power_ng', image:'info_icon_sprite_{$size}px.png' })
+Tag::Other.find_or_create_by({ name:'power_ok2', image:'info_icon_sprite_{$size}px.png' })
+Tag::Other.find_or_create_by({ name:'power_netcafe', image:'info_icon_sprite_{$size}px.png' })
+Tag::Other.find_or_create_by({ name:'nosmoke', image:'info_icon_sprite_{$size}px.png' })
+Tag::Other.find_or_create_by({ name:'smoke', image:'info_icon_sprite_{$size}px.png' })
+Tag::Other.find_or_create_by({ name:'smoke_separate', image:'info_icon_sprite_{$size}px.png' })
+Tag::Other.find_or_create_by({ name:'qi', image:'info_icon_sprite_{$size}px.png' })
+Tag::Other.find_or_create_by({ name:'eatinspace', image:'info_icon_sprite_{$size}px.png' })
+
+Tag::Wifi.find_or_create_by({ name:'softbank', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'docomo', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'au', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'livedoor', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'hotspot', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'flets', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'bbmobile', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'freespot', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'cable', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'other', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'starbucks', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'familymart', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'lawson', image:'info_icon_sprite_{$size}px.png' })
+Tag::Wifi.find_or_create_by({ name:'seveneleven', image:'info_icon_sprite_{$size}px.png' })
