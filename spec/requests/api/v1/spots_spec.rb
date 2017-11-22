@@ -3,7 +3,7 @@ require "spec_helper"
 
 RSpec.describe "Spots", type: :request do
   describe "GET /" do
-    context do
+    context 'basic case' do
       before do
         create :ee_datum_with_spot, latitude:36.0, longitude:136
         create :ee_datum_with_spot, latitude:36.1, longitude:136.1
@@ -55,83 +55,68 @@ RSpec.describe "Spots", type: :request do
     context 'tag' do
       before do
         create :ee_datum_with_spot, latitude:36.0, longitude:136, tag:'A'
-        create :ee_datum_with_spot, latitude:36.1, longitude:136.1, tag:'B'
-        create :ee_datum_with_spot, latitude:37.1, longitude:137.1, tag:'A'
+        create :ee_datum_with_spot, latitude:36.0, longitude:136, tag:'A,B'
+        create :ee_datum_with_spot, latitude:36.0, longitude:136, tag:'A,C'
+        create :ee_datum_with_spot, latitude:36.0, longitude:136, tag:'C,D'
       end
       it do
-        get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, tag:'A'}
+        get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, tags:'A,B'}
         expect(response.body).to include_json({
           "results": [
-            {
-              "latitude": 36.0,
-              "longitude": 136.0,
-              "tag": ['A']
-            }
+            { "tags": ['A'] },
+            { "tags": ['A','B'] },
+            { "tags": ['A','C'] },
           ]
         })
         expect(response.body).not_to include_json({
           "results": [
-            {
-              "latitude": 37.1,
-              "longitude": 137.1,
-              "tag": ['B']
-            }
+            { "tags": ['C','D'] },
           ]
         })
       end
     end
     context 'category' do
       before do
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'A'
-        create :ee_datum_with_spot, latitude:36.1, longitude:136.1, category:'B'
-        create :ee_datum_with_spot, latitude:37.1, longitude:137.1, category:'A'
+        create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'B'
+        create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'A,B'
+        create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'A,C'
+        create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'D'
       end
       it do
-        get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, category:'A'}
+        get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, categories:'B,C'}
         expect(response.body).to include_json({
           "results": [
-            {
-              "latitude": 36.0,
-              "longitude": 136.0,
-              "category": ['A']
-            }
+            { "categories": ['B'] },
+            { "categories": ['A','B'] },
+            { "categories": ['A','C'] },
           ]
         })
         expect(response.body).not_to include_json({
           "results": [
-            {
-              "latitude": 37.1,
-              "longitude": 137.1,
-              "category": ['B']
-            }
+            { "categories": ['D'] },
           ]
         })
       end
     end
     context 'wireless' do
       before do
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, wireless:'A'
-        create :ee_datum_with_spot, latitude:36.1, longitude:136.1, wireless:'B'
-        create :ee_datum_with_spot, latitude:37.1, longitude:137.1, wireless:'A'
+        create :ee_datum_with_spot, latitude:36.0, longitude:136, wireless:'A,B,C,D'
+        create :ee_datum_with_spot, latitude:36.0, longitude:136, wireless:'A,C'
+        create :ee_datum_with_spot, latitude:36.0, longitude:136, wireless:'B,C'
+        create :ee_datum_with_spot, latitude:36.0, longitude:136, wireless:'C,A'
       end
       it do
         get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, wireless:'A'}
         expect(response.body).to include_json({
           "results": [
-            {
-              "latitude": 36.0,
-              "longitude": 136.0,
-              "wireless": ['A']
-            }
+            { "wireless": ['A','B','C','D'] },
+            { "wireless": ['A','C'] },
+            { "wireless": ['C','A'] },
           ]
         })
         expect(response.body).not_to include_json({
           "results": [
-            {
-              "latitude": 37.1,
-              "longitude": 137.1,
-              "wireless": ['B']
-            }
+            { "wireless": ['B','C'] },
           ]
         })
       end

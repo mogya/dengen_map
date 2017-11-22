@@ -1,6 +1,6 @@
 class Spot < ApplicationRecord
   enum status: [ :status_hidden, :status_open, :status_pending, :status_closed, :status_down ]
-  has_one :ee_datum, foreign_key:'spot_id', primary_key:'ee_id'
+  has_one :ee_datum, foreign_key:'spot_id', primary_key:'ee_id', dependent: :destroy
   belongs_to :prime_category, class_name:'Tag::Category'
   delegate 'open?', to: :ee_datum
   delegate :url_pc, :wireless, :powersupply, :other,
@@ -125,18 +125,17 @@ class Spot < ApplicationRecord
       unless contains_invalid
         return false unless spot.open?
       end
-      tags.each do |tag|
-        return false unless spot.ee_datum.tag.include?(tag)
+      return false if tags.present? && tags.all? do |tag|
+        !spot.ee_datum.tag.include?(tag)
       end
-      categories.each do |category|
-        return false unless spot.ee_datum.category.include?(category)
+      return false if categories.present? && categories.all? do |category|
+        !spot.ee_datum.category.include?(category)
       end
-      wireless.each do |w|
-        return false unless spot.ee_datum.wireless.include?(w)
+      return false if wireless.present? && wireless.all? do |wifi|
+        !spot.ee_datum.wireless.include?(wifi)
       end
       return true
     end
-
     spots.select(&l)
   end
 

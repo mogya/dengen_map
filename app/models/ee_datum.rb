@@ -16,6 +16,9 @@ class EeDatum < ApplicationRecord
     self.wireless = entry['wireless']
     self.powersupply = entry['powersupply']
     self.tag = entry['tag']
+    self.tag.gsub!('電源OK','電源:お客様用コンセント')
+    self.tag.gsub!('電源:実績あり','電源:壁コンセント')
+    self.tag = self.tag.split(/ *, */).uniq.join(',')
     self.other = entry['other']
     self.reference_urls = entry['reference_urls']
     self.private_data = entry['private_data']
