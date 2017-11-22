@@ -148,10 +148,11 @@ import MoSpot from './MoSpot.js';
 import MoUrlParams from './MoUrlParams.js';
 import MoStorage from './MoStorage.js';
 import MoApi from './api/MoApi';
+import MoApiV1 from './api/MoApiV1';
 import DidYouMean from './DidYouMean.vue';
 import errorNotification from './util/ErrorNotification';
 
-const moAPI = new MoApi();
+const moAPI = new MoApiV1();
 const urlParams = new MoUrlParams();
 const storage = new MoStorage();
 
@@ -253,40 +254,32 @@ export default {
       this.loading = true;
       this.message = null;
       let tasks = [];
-      ['電源OK','電源:実績あり','電源:お客様用コンセント','電源:壁コンセント','電源:USB'].forEach((power_tag)=>{
-        let params = {
-          tag: power_tag,
-          n: this.momap.bounds.n,
-          s: this.momap.bounds.s,
-          w: this.momap.bounds.w,
-          e: this.momap.bounds.e
-        }
-        if (!this.smpMode){
-          params.lat = this.momap.lat;
-          params.lng = this.momap.lng;
-        }
-        tasks.push( moAPI.search(params) );
-      });
-      Promise.all(tasks).then(
-        (results) => {
-          let any_error = false;
-          results.forEach((result)=>{
-            if (result.data.status === 400){
-              this.onErrorTooMuchSpots()
-              any_error = true;
-            }else if (result.data.status !== 'OK'){
-              errorNotification(result);
-              errorNotification(result.message);
-              errorNotification(result.data.message);
-              any_error = true;
-            }
-          },this)
-          if (!any_error){
+      let params = {
+        tags: '電源:お客様用コンセント,電源:壁コンセント,電源:USB',
+        n: this.momap.bounds.n,
+        s: this.momap.bounds.s,
+        w: this.momap.bounds.w,
+        e: this.momap.bounds.e
+      }
+      if (!this.smpMode){
+        params.lat = this.momap.lat;
+        params.lng = this.momap.lng;
+      }
+      moAPI.spots(params).then(
+        (result) => {
+          console.log(`moAPI results.length:${result.data.results.length}`);
+          if (result.data.status === 400){
+            this.onErrorTooMuchSpots()
+          }else if (result.data.results.length > 300){
+            this.onErrorTooMuchSpots()
+          }else if (result.data.status !== 'OK'){
+            errorNotification(result);
+            errorNotification(result.message);
+            errorNotification(result.data.message);
+          }else{
             this.message = null;
             this.spots.splice(0, this.spots.length);
-            results.forEach((result)=>{
-              this.addSpots(result.data.results);
-            },this);
+            this.addSpots(result.data.results);
             this.storeSettings();
           }
           this.loading = false;
@@ -316,24 +309,27 @@ export default {
       spots.forEach((spot)=>{
         if (this.spotFilter(spot)){
           let v = this.spots.findIndex( (s)=>{
-            return (s.id === spot.entry_id)
+            return (s.id === spot.id)
           } );
           if (v < 0){
+            console.log(`adding ${spot.id}:${spot.title}`);
             this.spots.push(new MoSpot(spot));
+          }else{
+            console.log(`skip ${spot.id}:${spot.title}`);
           }
         }
       },this);
     },
     spotFilter(spot){
       if (this.momenu.pcMode){
-        if (0 > spot.tag.indexOf('用途:ノマド') ){
+        if (0 > spot.tags.indexOf('用途:ノマド') ){
           return false;
         }
-        if (!this.momenu.showNetCafe && (0 <= spot.tag.indexOf('ネットカフェ')) ){
+        if (!this.momenu.showNetCafe && (0 <= spot.tags.indexOf('ネットカフェ')) ){
           return false;
         }
       }
-      if (!this.momenu.pcMode && (0 > spot.tag.indexOf('用途:充電')) ){
+      if (!this.momenu.pcMode && (0 > spot.tags.indexOf('用途:充電')) ){
         return false;
       }
       return true;

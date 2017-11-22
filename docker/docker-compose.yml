@@ -6,6 +6,7 @@ services:
     volumes:
       - /share
       - ..:/app
+      - ./nginx_dev/app.conf:/etc/nginx/conf.d/app.conf
       # - ./mysql/app.conf:/etc/mysql/conf.d/app.conf:ro
   db:
     env_file: ../.env
@@ -27,12 +28,14 @@ services:
   #     PGDATA: /app/db/mysql/data
   #   volumes_from:
   #     - data
-  # nginx:
-  #   image: nginx
-  #   ports:
-  #    - "8040:8080"
-  #   volumes_from:
-  #     - data
+  nginx_dev:
+    image: nginx
+    ports:
+     - "80:80"
+    links:
+      - app:app
+    volumes_from:
+      - data
   app:
     build:
       context: ../
@@ -46,4 +49,3 @@ services:
       # - mysql:mysql
     ports:
      - "3000:3000"
-     - "8080:8080"

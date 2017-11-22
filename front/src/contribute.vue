@@ -283,23 +283,23 @@ export default {
         if (this.spotFilter(spot)){
           this.spots.push(new MoSpot(spot));
         }else{
-          // console.log(`skiped: ${spot.title}(${spot.entry_id})`);
+          // console.log(`skiped: (${spot.id})${spot.title}`);
         }
       });
     },
     spotFilter(spot){
-      // console.log(`${spot.entry_id}:${spot.title}`);
+      // console.log(`${spot.id}:${spot.title}`);
       // console.log(`showNetCafe:${this.momenu.showNetCafe}`);
-      // console.log(`NetCafe:${spot.tag.indexOf('ネットカフェ')}`);
+      // console.log(`NetCafe:${spot.tags.indexOf('ネットカフェ')}`);
       if (this.momenu.pcMode){
-        if (0 > spot.tag.indexOf('用途:ノマド') ){
+        if (0 > spot.tags.indexOf('用途:ノマド') ){
           return false;
         }
-        if (!this.momenu.showNetCafe && (0 <= spot.tag.indexOf('ネットカフェ')) ){
+        if (!this.momenu.showNetCafe && (0 <= spot.tags.indexOf('ネットカフェ')) ){
           return false;
         }
       }
-      if (!this.momenu.pcMode && (0 > spot.tag.indexOf('用途:充電')) ){
+      if (!this.momenu.pcMode && (0 > spot.tags.indexOf('用途:充電')) ){
         return false;
       }
       return true;

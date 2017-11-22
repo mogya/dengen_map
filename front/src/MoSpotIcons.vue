@@ -63,7 +63,7 @@ export default {
 
         ret.push(icon);
       });
-      this.spot.wirelesses.forEach((wireless)=>{
+      this.spot.wireless.forEach((wireless)=>{
         let icon={};
         if (IconData[wireless]){
           icon.pos = IconData[wireless]['pos'];

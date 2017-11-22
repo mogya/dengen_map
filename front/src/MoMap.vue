@@ -23,7 +23,7 @@
         v-for="spot in spots" :key='spot.id'
         :position="{ lat: spot.latitude, lng: spot.longitude }"
         :title="spot.name"
-        :icon="spot.powerframeIcon"
+        :icon="spot.icon"
         :clickable="true"
         :draggable="false"
         @click="onMarkerClick(spot)"
