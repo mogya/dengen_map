@@ -5,8 +5,8 @@ RSpec.describe "Spots", type: :request do
   describe "GET /" do
     context 'basic case' do
       before do
-        create :ee_datum_with_spot, latitude:36.0, longitude:136
         create :ee_datum_with_spot, latitude:36.1, longitude:136.1
+        create :ee_datum_with_spot, latitude:36.0, longitude:136
         create :ee_datum_with_spot, latitude:37.1, longitude:137.1
         create :ee_datum_with_spot, latitude:36.0, longitude:136.1, status:'closed'
       end
@@ -54,10 +54,10 @@ RSpec.describe "Spots", type: :request do
     end
     context 'tag' do
       before do
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, tag:'A'
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, tag:'A,B'
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, tag:'A,C'
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, tag:'C,D'
+        create :ee_datum_with_spot, latitude:36.01, longitude:136, tag:'A'
+        create :ee_datum_with_spot, latitude:36.02, longitude:136, tag:'A,B'
+        create :ee_datum_with_spot, latitude:36.03, longitude:136, tag:'A,C'
+        create :ee_datum_with_spot, latitude:36.04, longitude:136, tag:'C,D'
       end
       it do
         get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, tags:'A,B'}
@@ -80,10 +80,10 @@ RSpec.describe "Spots", type: :request do
     end
     context 'category' do
       before do
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'B'
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'A,B'
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'A,C'
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'D'
+        create :ee_datum_with_spot, latitude:36.01, longitude:136, category:'B'
+        create :ee_datum_with_spot, latitude:36.02, longitude:136, category:'A,B'
+        create :ee_datum_with_spot, latitude:36.03, longitude:136, category:'A,C'
+        create :ee_datum_with_spot, latitude:36.04, longitude:136, category:'D'
       end
       it do
         get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, categories:'B,C'}
@@ -103,10 +103,10 @@ RSpec.describe "Spots", type: :request do
     end
     context 'wireless' do
       before do
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, wireless:'A,B,C,D'
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, wireless:'A,C'
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, wireless:'B,C'
-        create :ee_datum_with_spot, latitude:36.0, longitude:136, wireless:'C,A'
+        create :ee_datum_with_spot, latitude:36.01, longitude:136, wireless:'A,B,C,D'
+        create :ee_datum_with_spot, latitude:36.02, longitude:136, wireless:'A,C'
+        create :ee_datum_with_spot, latitude:36.03, longitude:136, wireless:'B,C'
+        create :ee_datum_with_spot, latitude:36.04, longitude:136, wireless:'C,A'
       end
       it do
         get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, wireless:'A'}
