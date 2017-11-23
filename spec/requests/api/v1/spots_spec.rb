@@ -61,6 +61,9 @@ RSpec.describe "Spots", type: :request do
       end
       it do
         get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, tags:'A,B'}
+        Rails.logger.debug("EeDatum.count:#{EeDatum.count}")
+        Rails.logger.debug("Spots.count:#{Spot.count}")
+        Rails.logger.debug(response.body)
         expect(response.body).to include_json({
           "results": [
             { "tags": ['A'] },

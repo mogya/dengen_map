@@ -8,6 +8,7 @@ require 'capybara/rails'
 require 'capybara/rspec'
 
 ActiveRecord::Migration.maintain_test_schema!
+Rails.logger = Logger.new(STDOUT)
 
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

@@ -13,10 +13,6 @@ dependencies:
   post:
     - bundle exec rake assets:precompile
 
-database:
-  post:
-    - psql -c "CREATE EXTENSION postgis;" -d circle_ruby_test
-
 test:
   override:
     - bundle exec rspec
