@@ -15,7 +15,7 @@ dependencies:
 
 database:
   post:
-    - psql -c "CREATE EXTENSION postgis;" -d circle_test
+    - psql -c "CREATE EXTENSION postgis;" -d circle_ruby_test
 
 test:
   override:
