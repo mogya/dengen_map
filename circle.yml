@@ -1,7 +1,6 @@
 machine:
   timezone:
     Asia/Tokyo
-
   ruby:
     version:
       2.3.2
@@ -13,6 +12,11 @@ dependencies:
     - bundle -j4 --path=vendor/bundle
   post:
     - bundle exec rake assets:precompile
+
+database:
+  post:
+    - psql -c "CREATE EXTENSION postgis;" -d circle_test
+
 test:
   override:
     - bundle exec rspec
