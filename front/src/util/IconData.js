@@ -23,6 +23,8 @@ export default {
   "有線LAN": {pos:18, text:'有線LAN'},
   "独自": {pos:19, text:'独自'},
   "wi2": {pos:25, text:'wi2'},
+  "wi2:free": {pos:30, text:'wi2<br />free'},
+  "wi2:premium": {pos:29, text:'wi2<br />premium'},
   "Tullys Wi-Fi": {pos:26, text:"Tullys<br />Wi-Fi"},
   "Other Wi-Fi": {pos:19, text:"その他"},
 };
