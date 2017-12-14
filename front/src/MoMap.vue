@@ -15,6 +15,7 @@
       ref='gmapMap'
     >
       <gmap-marker
+        v-if="showCenterPin"
         :position="{ lat: initial.lat, lng: initial.lng }"
         :clickable="false"
         :draggable="false"
@@ -168,7 +169,8 @@ export default {
         }
       }
     },
-    spots: {type:Array, required:false, default:[]}
+    spots: {type:Array, required:false, default:[]},
+    showCenterPin:Boolean
   },
   methods: {
     onUpdateCenter(center){

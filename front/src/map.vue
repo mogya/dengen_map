@@ -14,8 +14,9 @@
     >
     </momenu>
     <momap
-      :initial='initialMapData()'
-      :spots='spots'
+      :initial="initialMapData()"
+      :spots="spots"
+      :showCenterPin="showCenterPin()"
       ref='momap'
       @idle.once="onFirstIdle"
       @idle="onIdle"
@@ -321,15 +322,31 @@ export default {
       },this);
     },
     spotFilter(spot){
+      var for_pc = false;
+      var for_mobile = false;
+      var netcafe = false;
+      spot.tags.forEach((tag)=>{
+        switch (tag.name){
+          case '用途:ノマド':
+            for_pc = true;
+            break;
+          case '用途:充電':
+            for_mobile = true;
+            break;
+          case 'ネットカフェ':
+            netcafe = true;
+            break;
+        }
+      })
       if (this.momenu.pcMode){
-        if (0 > spot.tags.indexOf('用途:ノマド') ){
+        if (!for_pc){
           return false;
         }
-        if (!this.momenu.showNetCafe && (0 <= spot.tags.indexOf('ネットカフェ')) ){
+        if (!this.momenu.showNetCafe && netcafe){
           return false;
         }
       }
-      if (!this.momenu.pcMode && (0 > spot.tags.indexOf('用途:充電')) ){
+      if (!this.momenu.pcMode && (!for_mobile) ){
         return false;
       }
       return true;
@@ -346,6 +363,9 @@ export default {
         pcMode: ( storage.get('type')==='pc' ),
         showNetCafe: ( storage.get('netcafe')==='true' ),
       }
+    },
+    showCenterPin(){
+      return (urlParams.getTitle().length>0)
     }
   }
 };

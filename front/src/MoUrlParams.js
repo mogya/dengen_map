@@ -101,7 +101,10 @@ export default class MoUrlParams {
       if (title){
         this.title = decodeURIComponent(title).replace(/付近$/,'');
       }else{
-        this.title = null;
+        this.title = "";
+      }
+      if (title=="index.html"){
+        this.title = "";
       }
     }
     return this.title;

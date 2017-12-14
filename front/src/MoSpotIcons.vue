@@ -45,9 +45,9 @@ export default {
       let ret=[];
       this.spot.tags.forEach((tag)=>{
         let icon={};
-        if (IconData[tag]){
-          icon.pos = IconData[tag]['pos'];
-          icon.text = IconData[tag]['text'];
+        if (IconData[tag.name]){
+          icon.pos = IconData[tag.name]['pos'];
+          icon.text = IconData[tag.name]['text'];
         }else{
           return;
         };
@@ -55,7 +55,7 @@ export default {
         icon.size = 30;
         icon.cssPos = -1*icon.size*icon.pos;
         // 古い電源タグと新しい電源タグが混在している場合の経過措置
-        if (tag === '電源:お客様用コンセント' || tag === '電源:壁コンセント' || tag === '電源:USB'){
+        if (tag.name === '電源:お客様用コンセント' || tag.name === '電源:壁コンセント' || tag.name === '電源:USB'){
           ret = ret.filter((icon)=>{
             return (icon.title!='電源:OK' && icon.title!='使えた<br />実績あり' )
           });
@@ -65,9 +65,9 @@ export default {
       });
       this.spot.wireless.forEach((wireless)=>{
         let icon={};
-        if (IconData[wireless]){
-          icon.pos = IconData[wireless]['pos'];
-          icon.text = IconData[wireless]['text'];
+        if (IconData[wireless.name]){
+          icon.pos = IconData[wireless.name]['pos'];
+          icon.text = IconData[wireless.name]['text'];
         }else if (wireless.length>0){
           icon.pos = IconData["Other Wi-Fi"]['pos'];
           icon.text = wireless;
