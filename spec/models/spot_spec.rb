@@ -10,30 +10,27 @@ RSpec.describe Spot, type: :model do
     end
   end
 
-  describe "categories" do
+  describe "add_tags" do
     context do
-      let!(:datum1){ create :ee_datum_with_spot, category:'A,B , C ,D' }
-      subject { datum1.spot.categories }
-      it { is_expected.to eq ['A','B','C','D'] }
-    end
-  end
-
-  describe "prime_category" do
-    context do
-      let!(:categoryA){create :tag_category, name:'A',importance:1}
-      let!(:categoryB){create :tag_category, name:'B',importance:2}
-      let!(:categoryC){create :tag_category, name:'C',importance:4}
-      let!(:categoryD){create :tag_category, name:'D',importance:3}
-      let(:datum0){ create :ee_datum_with_spot, category:nil }
-      let(:datum1){ create :ee_datum_with_spot, category:'B' }
-      let(:datum2){ create :ee_datum_with_spot, category:'A,D' }
-      let(:datum3){ create :ee_datum_with_spot, category:'A,C,D' }
-      it do
-       expect(datum0.spot.prime_category).to eq nil
-       expect(datum1.spot.prime_category).to eq categoryB
-       expect(datum2.spot.prime_category).to eq categoryD
-       expect(datum3.spot.prime_category).to eq categoryC
-     end
+      let!(:spot) { create :spot }
+      let!(:tagA){create :tag_category, name:'A',importance:1}
+      let!(:tagB){create :tag_other, name:'B',importance:2}
+      let!(:tagD){create :tag_wifi, name:'D',importance:4}
+      let!(:tagC){create :tag_category, name:'C',importance:3}
+      it {
+        spot.add_tags('A,B,D')
+        expect(spot.tags).to include tagA
+        expect(spot.tags).to include tagB
+        expect(spot.tags).to include tagD
+        expect(spot.tags).not_to include tagC
+        expect(spot.category_tags).to include tagA
+        expect(spot.category_tags).not_to include tagB
+        expect(spot.category_tags).not_to include tagC
+        expect(spot.wireless_tags).to include tagD
+        expect(spot.wireless_tags).not_to include tagA
+        expect(spot.other_tags).to include tagB
+        expect(spot.other_tags).not_to include tagA
+      }
     end
   end
 
@@ -43,9 +40,7 @@ RSpec.describe Spot, type: :model do
       let(:datum1){ create :ee_datum_with_spot, category:'A', tag:'電源:お客様用コンセント' }
       let(:datum2){ create :ee_datum_with_spot, category:'A', tag:'電源:NG' }
       it { expect(datum1.spot.icon).to eq '//oasis.mogya.com/images/design/spot_icon_05_none_[size]px.png' }
-      it { expect(datum1.spot.powerframe_icon).to eq '//oasis.mogya.com/images/design/spot_icon_05_ok_[size]px.png' }
       it { expect(datum2.spot.icon).to eq '//oasis.mogya.com/images/design/spot_icon_05_none_[size]px.png' }
-      it { expect(datum2.spot.powerframe_icon).to eq '//oasis.mogya.com/images/design/spot_icon_05_ng_[size]px.png' }
     end
   end
 
@@ -89,7 +84,6 @@ RSpec.describe Spot, type: :model do
       let!(:datum4){ create :ee_datum_with_spot, latitude:36.0, longitude:136, tag:'C,D' }
       subject { Spot.spots_in_range(n:37, s:35, w:135, e:137, tags:['A','B']) }
       it do
-        # expect(subject).to include(datum1.spot)
         expect(subject).to include(datum2.spot)
         expect(subject).to include(datum3.spot)
         expect(subject).not_to include(datum4.spot)
@@ -97,14 +91,16 @@ RSpec.describe Spot, type: :model do
     end
 
     context "by categories" do
+      let!(:categoryA){create :tag_category, name:'A',importance:1}
+      let!(:categoryB){create :tag_category, name:'B',importance:2}
+      let!(:categoryC){create :tag_category, name:'C',importance:4}
+      let!(:categoryD){create :tag_category, name:'D',importance:3}
       let!(:datum1){ create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'A,B,C' }
       let!(:datum2){ create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'A,C' }
       let!(:datum3){ create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'B,C' }
       let!(:datum4){ create :ee_datum_with_spot, latitude:36.0, longitude:136, category:'C,D' }
       subject { Spot.spots_in_range(n:37, s:35, w:135, e:137, categories:['A','B']) }
       it do
-        # expect(subject).to include(datum1.spot)
-        # expect(subject).to include(datum2.spot)
         expect(subject).to include(datum3.spot)
         expect(subject).not_to include(datum4.spot)
       end

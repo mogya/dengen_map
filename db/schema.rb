@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171119133333) do
+ActiveRecord::Schema.define(version: 20171213144100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20171119133333) do
     t.integer  "parent_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "image_id"
     t.index ["importance"], name: "index_tags_on_importance", using: :btree
     t.index ["name"], name: "index_tags_on_name", using: :btree
     t.index ["parent_id"], name: "index_tags_on_parent_id", using: :btree

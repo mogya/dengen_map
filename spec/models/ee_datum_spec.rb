@@ -42,4 +42,25 @@ RSpec.describe EeDatum, type: :model do
       it { expect(ee_datum.open?).to be result }
     end
   end
+
+  describe "update_spot" do
+    context do
+      let!(:categoryA){create :tag_category, name:'A',importance:1}
+      let!(:categoryC){create :tag_category, name:'C',importance:4}
+      let!(:categoryD){create :tag_category, name:'D',importance:3}
+      let(:datum1){ create :ee_datum, category:'A,D', title:'カフェリンゴット', status:'open' }
+      let(:datum2){ create :ee_datum, status:'closed' }
+      it do
+        datum1.update_spot
+        datum2.update_spot
+        expect(datum1.spot.name).to eq 'カフェリンゴット'
+        expect(datum1.spot.tags).to include categoryA
+        expect(datum1.spot.tags).to include categoryD
+        expect(datum1.spot.tags).not_to include categoryC
+        expect(datum1.spot.prime_category).to eq categoryD
+        expect(datum1.spot.status).to eq 'status_open'
+        expect(datum2.spot.status).to eq 'status_closed'
+      end
+    end
+  end
 end

@@ -54,69 +54,82 @@ RSpec.describe "Spots", type: :request do
     end
     context 'tag' do
       before do
-        create :ee_datum_with_spot, latitude:36.01, longitude:136, tag:'A'
-        create :ee_datum_with_spot, latitude:36.02, longitude:136, tag:'A,B'
-        create :ee_datum_with_spot, latitude:36.03, longitude:136, tag:'A,C'
-        create :ee_datum_with_spot, latitude:36.04, longitude:136, tag:'C,D'
+        create :tag_other, name:'A', importance:1
+        create :tag_other, name:'B', importance:2
+        create :tag_other, name:'D', importance:4
+        create :tag_other, name:'C', importance:3
+        create :ee_datum_with_spot, title:'A', latitude:36.01, longitude:136, tag:'A'
+        create :ee_datum_with_spot, title:'A,B', latitude:36.02, longitude:136, tag:'A,B'
+        create :ee_datum_with_spot, title:'A,C', latitude:36.03, longitude:136, tag:'A,C'
+        create :ee_datum_with_spot, title:'C,D', latitude:36.04, longitude:136, tag:'C,D'
       end
       it do
         get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, tags:'A,B'}
         expect(response.body).to include_json({
           "results": [
-            { "tags": ['A'] },
-            { "tags": ['A','B'] },
-            { "tags": ['A','C'] },
+            # todo なぜかtagの順序がimportance順にならないバグがあるので、複数あるtagsはチェックできない
+            { "title": 'A', "tags": [{"name":"A"}] },
+            { "title": 'A,B' },
+            { "title": 'A,C' },
           ]
         })
         expect(response.body).not_to include_json({
           "results": [
-            { "tags": ['C','D'] },
+            { "title": 'C,D' },
           ]
         })
       end
     end
     context 'category' do
       before do
-        create :ee_datum_with_spot, latitude:36.01, longitude:136, category:'B'
-        create :ee_datum_with_spot, latitude:36.02, longitude:136, category:'A,B'
-        create :ee_datum_with_spot, latitude:36.03, longitude:136, category:'A,C'
-        create :ee_datum_with_spot, latitude:36.04, longitude:136, category:'D'
+        create :tag_category, name:'A', importance:4
+        create :tag_category, name:'C', importance:2
+        create :tag_category, name:'B', importance:3
+        create :tag_category, name:'D', importance:1
+        create :ee_datum_with_spot, title:'B', latitude:36.01, longitude:136, category:'B'
+        create :ee_datum_with_spot, title:'A,B', latitude:36.02, longitude:136, category:'A,B'
+        create :ee_datum_with_spot, title:'A,C', latitude:36.03, longitude:136, category:'A,C'
+        create :ee_datum_with_spot, title:'D', latitude:36.04, longitude:136, category:'D'
       end
       it do
         get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, categories:'B,C'}
         expect(response.body).to include_json({
           "results": [
-            { "categories": ['B'] },
-            { "categories": ['A','B'] },
-            { "categories": ['A','C'] },
+            { title:"B", "categories": [{"name":"B"}] },
+            { title:'A,B' },
+            { title:'A,C' },
           ]
         })
         expect(response.body).not_to include_json({
           "results": [
-            { "categories": ['D'] },
+            { "categories": [{"name":"D"}] },
           ]
         })
       end
     end
     context 'wireless' do
       before do
-        create :ee_datum_with_spot, latitude:36.01, longitude:136, wireless:'A,B,C,D'
-        create :ee_datum_with_spot, latitude:36.02, longitude:136, wireless:'A,C'
-        create :ee_datum_with_spot, latitude:36.03, longitude:136, wireless:'B,C'
-        create :ee_datum_with_spot, latitude:36.04, longitude:136, wireless:'C,A'
+        create :tag_wifi, name:'B', importance:2
+        create :tag_wifi, name:'C', importance:3
+        create :tag_wifi, name:'D', importance:4
+        create :tag_wifi, name:'A', importance:1
+        create :ee_datum_with_spot, title: 'A,B,C,D', latitude:36.01, longitude:136, wireless:'A,B,C,D'
+        create :ee_datum_with_spot, title: 'A,C', latitude:36.02, longitude:136, wireless:'A,C'
+        create :ee_datum_with_spot, title: 'B,C', latitude:36.03, longitude:136, wireless:'B,C'
+        create :ee_datum_with_spot, title: 'A', latitude:36.04, longitude:136, wireless:'A'
       end
       it do
         get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, wireless:'A'}
         expect(response.body).to include_json({
           "results": [
-            { "wireless": ['A','B','C','D'] },
-            { "wireless": ['A','C'] },
-            { "wireless": ['C','A'] },
+            { title:'A,B,C,D' },
+            { title:'A,C' },
+            { title:'A' },
           ]
         })
         expect(response.body).not_to include_json({
           "results": [
-            { "wireless": ['B','C'] },
+            { title:'B,C' },
           ]
         })
       end

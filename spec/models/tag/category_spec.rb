@@ -10,10 +10,9 @@ RSpec.describe Tag::Category, type: :model do
       let!(:categoryD){create :tag_category, name:'D',importance:3, image:'d.png'}
       it do
         expect(Tag::Category.prime_category([])).to eq nil
-        expect(Tag::Category.prime_category(%w(B))).to eq categoryB
-        expect(Tag::Category.prime_category(%w(A B D))).to eq categoryD
-        expect(Tag::Category.prime_category(%w(A B C D))).to eq categoryC
-        expect(Tag::Category.prime_category(%w(A B C D), with_image:true)).to eq categoryD
+        expect(Tag::Category.prime_category([categoryA])).to eq categoryA
+        expect(Tag::Category.prime_category([categoryA,categoryB])).to eq categoryB
+        expect(Tag::Category.prime_category([categoryA,categoryB,categoryC,categoryD])).to eq categoryD
       end
     end
   end

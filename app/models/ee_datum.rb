@@ -16,15 +16,13 @@ class EeDatum < ApplicationRecord
     self.wireless = entry['wireless']
     self.powersupply = entry['powersupply']
     self.tag = entry['tag']
-    self.tag.gsub!('電源OK','電源:お客様用コンセント')
-    self.tag.gsub!('電源:実績あり','電源:壁コンセント')
-    self.tag = self.tag.split(/ *, */).uniq.join(',')
     self.other = entry['other']
     self.reference_urls = entry['reference_urls']
     self.private_data = entry['private_data']
     self.status = entry['status']
     self.expiration_date = Time.zone.parse(entry['expiration_date'].to_s)
     self.ee_update_at = Time.zone.parse(entry['edit_date'].to_s)
+    justify!
   end
 
   def self.update_or_create_by_json(entry, force_update=false)
@@ -48,11 +46,32 @@ class EeDatum < ApplicationRecord
     self.spot.status = :status_closed
     self.spot.status = :status_open if self.open?
     self.spot.address = self.address
+    self.spot.add_tags(self.category)
+    self.spot.add_tags(self.wireless)
+    self.spot.add_tags(self.tag)
     self.spot.tel = self.tel
     self.spot.ee_id = self.spot_id
     self.spot.lonlat = "POINT (#{self.longitude} #{self.latitude})"
-    self.spot.prime_category = Tag::Category.prime_category(categories, true)
+    self.spot.prime_category = Tag::Category.prime_category( spot.category_tags )
     self.spot.save
+  end
+
+  def justify!
+    self.wireless.gsub!('TullysWi-Fi','Tullys Wi-Fi')
+    self.wireless.gsub!('マクドナルドWi-Fi','マクドナルドWiFi')
+    self.wireless.gsub!('docomoWi-Fi','docomo Wi-Fi')
+    self.wireless.gsub!('SoftbankWifi','ソフトバンクWi-Fi')
+    self.wireless.gsub!('Wi-FiNex','Wi-Fi Nex')
+    self.wireless.gsub!('Wi-FiNex','Wi-Fi Nex')
+    self.wireless.gsub!('フレッツ・スポット（NTT東日本）','フレッツ・スポット')
+    self.wireless = self.wireless.split(/ *, */).uniq.join(',')
+    self.tag.gsub!('電源あり','電源:お客様用コンセント')
+    self.tag.gsub!('電源OK','電源:お客様用コンセント')
+    self.tag.gsub!('電源:実績あり','電源:壁コンセント')
+    self.tag.gsub!('電源NG','電源:NG')
+    self.tag.gsub!('電源:なし','電源:NG')
+    self.tag.gsub!('携帯充電器','電源:充電器貸出')
+    self.tag = self.tag.split(/ *, */).uniq.join(',')
   end
 
   def open?

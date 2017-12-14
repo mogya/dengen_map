@@ -23,7 +23,7 @@ namespace :ee do
         if json['status'] == 'OK'
           break if json['results'].size == 0
           json['results'].each do |entry|
-            data = EeDatum.update_or_create_by_json(entry)
+            data = EeDatum.update_or_create_by_json(entry,force_update:true)
             logger.info "#{data.spot_id}:#{data.title}(#{data.ee_update_at.strftime('%Y%m%d%H%M%S')})"
             uri = recent_api.expand({
               query:{
@@ -41,7 +41,6 @@ namespace :ee do
         logger.error "#{res.code}:#{res.message}"
         logger.debug res
       end
-      sleep 1
     end
   end
   desc "旧システムから更新データを取得します"
@@ -84,7 +83,6 @@ namespace :ee do
         logger.error "#{res.code}:#{res.message}"
         logger.debug res
       end
-      sleep 1
     end
   end
 end

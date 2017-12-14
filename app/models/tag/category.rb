@@ -1,19 +1,13 @@
 class Tag::Category < Tag
-  IMAGE_PREFIX = '//oasis.mogya.com/images/design/'
 
-  def self.prime_category(categories, with_image=false)
-    candidate_category = nil
-    categories.each do |category|
-      tag = Tag::Category.find_by(name:category)
-      next if (with_image && tag.image.nil?)
-      if candidate_category.nil? || (candidate_category.importance <= tag.importance)
-        candidate_category = tag
+  def self.prime_category(category_tags)
+    prime_category = nil
+    category_tags.each do |category|
+      next if (category.image.nil?)
+      if prime_category.nil? || (prime_category.importance <= category.importance)
+        prime_category = category
       end
     end
-    candidate_category
-  end
-
-  def image_path
-    "#{IMAGE_PREFIX}#{image}" if image
+    prime_category
   end
 end
