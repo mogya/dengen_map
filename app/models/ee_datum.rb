@@ -30,6 +30,7 @@ class EeDatum < ApplicationRecord
     if force_update || datum.ee_update_at.nil? || datum.ee_update_at < Time.zone.parse(entry['edit_date'].to_s)
       datum.set_by_json!(entry)
       datum.save
+      datum.update_spot
     end
     datum
   end
