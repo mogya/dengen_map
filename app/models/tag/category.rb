@@ -8,6 +8,6 @@ class Tag::Category < Tag
         prime_category = category
       end
     end
-    prime_category
+    prime_category || Tag::Category.find_by(name:'その他')
   end
 end
