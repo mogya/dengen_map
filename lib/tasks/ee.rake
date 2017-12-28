@@ -45,7 +45,7 @@ namespace :ee do
   end
   desc "旧システムから更新データを取得します"
   task :update => :common do
-    query_limit = 3
+    query_limit = 10
     recent_api = Addressable::Template.new("https://oasis.mogya.com/api/v0/recent_entries/{?query*}")
     last_updated_at = EeDatum.select(:ee_update_at).order(ee_update_at: :DESC).limit(1).first.ee_update_at
     uri = recent_api.expand({
@@ -58,6 +58,7 @@ namespace :ee do
       https = Net::HTTP.new(uri.host, 443)
       https.use_ssl = true
       res = https.start {
+        logger.info "api url:#{uri.to_s}"
         https.get(uri.request_uri)
       }
       if res.code == '200'
@@ -75,7 +76,6 @@ namespace :ee do
             })
           end
           logger.info "EeData count:#{EeDatum.count}"
-          logger.info "next api url:#{uri.to_s}"
         else
           logger.error "#{json['status']}:#{json['message']}"
         end
