@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const apiBase = 'https://oasis.mogya.com/api/';
-const apiBase = 'http://0.0.0.0/api/';
+const apiBase = 'https://oasis.mogya.com/api/';
+// const apiBase = 'http://0.0.0.0/api/';
 
 export default class Base {
   constructor() {

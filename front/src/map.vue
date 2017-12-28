@@ -268,22 +268,27 @@ export default {
       }
       moAPI.spots(params).then(
         (result) => {
-          console.log(`moAPI results.length:${result.data.results.length}`);
-          if (result.data.status === 400){
-            this.onErrorTooMuchSpots()
-          }else if (result.data.results.length > 300){
-            this.onErrorTooMuchSpots()
-          }else if (result.data.status !== 'OK'){
-            errorNotification(result);
-            errorNotification(result.message);
-            errorNotification(result.data.message);
-          }else{
-            this.message = null;
-            this.spots.splice(0, this.spots.length);
-            this.addSpots(result.data.results);
-            this.storeSettings();
+          try{
+            console.log(`moAPI results.length:${result.data.results.length}`);
+            if (result.data.status === 400){
+              this.onErrorTooMuchSpots()
+            }else if (result.data.results.length > 300){
+              this.onErrorTooMuchSpots()
+            }else if (result.data.status !== 'OK'){
+              errorNotification(result);
+              errorNotification(result.message);
+              errorNotification(result.data.message);
+            }else{
+              this.message = null;
+              this.spots.splice(0, this.spots.length);
+              console.log(result.data.results)
+              this.addSpots(result.data.results);
+              this.storeSettings();
+            }
           }
-          this.loading = false;
+          finally{
+            this.loading = false;
+          }
         },
         (err)=>{
           errorNotification(err);
