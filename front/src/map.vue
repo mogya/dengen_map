@@ -156,6 +156,7 @@ import errorNotification from './util/ErrorNotification';
 const moAPI = new MoApiV1();
 const urlParams = new MoUrlParams();
 const storage = new MoStorage();
+const max_spots = 200;
 
 // https://github.com/xkjyeah/vue-google-maps
 import * as VueGoogleMaps from 'vue2-google-maps';
@@ -260,7 +261,8 @@ export default {
         n: this.momap.bounds.n,
         s: this.momap.bounds.s,
         w: this.momap.bounds.w,
-        e: this.momap.bounds.e
+        e: this.momap.bounds.e,
+        max_spots: max_spots
       }
       if (!this.smpMode){
         params.lat = this.momap.lat;
@@ -269,19 +271,19 @@ export default {
       moAPI.spots(params).then(
         (result) => {
           try{
-            console.log(`moAPI results.length:${result.data.results.length}`);
+            console.log(`moAPI return.`);
             if (result.data.status === 400){
-              this.onErrorTooMuchSpots()
-            }else if (result.data.results.length > 300){
+              console.log(result.data)
+            }else if (result.data.status == 'TOO_MUCH_SPOTS'){
               this.onErrorTooMuchSpots()
             }else if (result.data.status !== 'OK'){
               errorNotification(result);
               errorNotification(result.message);
               errorNotification(result.data.message);
             }else{
+              console.log(`moAPI results.length:${result.data.results.length}`);
               this.message = null;
               this.spots.splice(0, this.spots.length);
-              console.log(result.data.results)
               this.addSpots(result.data.results);
               this.storeSettings();
             }
