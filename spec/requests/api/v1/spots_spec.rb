@@ -135,4 +135,22 @@ RSpec.describe "Spots", type: :request do
       end
     end
   end
+  describe "GET /count" do
+    context 'basic case' do
+      before do
+        create :ee_datum_with_spot, latitude:36.1, longitude:136.1
+        create :ee_datum_with_spot, latitude:36.0, longitude:136
+        create :ee_datum_with_spot, latitude:37.1, longitude:137.1
+        create :ee_datum_with_spot, latitude:36.0, longitude:136.1, status:'closed'
+      end
+      it do
+        get api_v1_spots_count_path, params:{n:37, s:35, w:135, e:137}
+        expect(response).to have_http_status(200)
+        expect(response.body).to include_json({
+          "status": "OK",
+          "count": 2
+        })
+      end
+    end
+  end
 end

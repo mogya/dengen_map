@@ -4,6 +4,11 @@ class Api::V1::SpotsController < Api::V1::BaseController
     respond_with @spots
   end
 
+  def count
+    @spots = Spot.spots_in_range(spot_search_params)
+    respond_with @spots
+  end
+
   private
     def spot_search_params
       params.require(:n)
@@ -22,6 +27,7 @@ class Api::V1::SpotsController < Api::V1::BaseController
       ret[:wireless] = params[:wireless].split(',') if params[:wireless]
       ret[:limit] = params[:limit].to_i if params[:limit]
       ret[:contains_invalid] = true if params[:contains_invalid]
+      ret[:compact] = true if params[:compact]
       ret
     end
 end
