@@ -1,6 +1,11 @@
 class Api::V1::SpotsController < Api::V1::BaseController
+  MAX_SPOTS_COUNT = 500
   def index
     @spots = Spot.spots_in_range(spot_search_params)
+
+    max_spots = params[:max_spots].try(:to_i) || MAX_SPOTS_COUNT
+    @status = "OK"
+    @status = "TOO_MUCH_SPOTS" if @spots.size > max_spots
     respond_with @spots
   end
 

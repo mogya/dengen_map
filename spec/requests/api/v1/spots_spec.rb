@@ -3,53 +3,74 @@ require "spec_helper"
 
 RSpec.describe "Spots", type: :request do
   describe "GET /" do
-    context 'basic case' do
+    context do
       before do
         create :ee_datum_with_spot, latitude:36.1, longitude:136.1
         create :ee_datum_with_spot, latitude:36.0, longitude:136
         create :ee_datum_with_spot, latitude:37.1, longitude:137.1
         create :ee_datum_with_spot, latitude:36.0, longitude:136.1, status:'closed'
       end
-      it do
-        get api_v1_spots_path, params:{n:37, s:35, w:135, e:137}
-        expect(response).to have_http_status(200)
-        expect(response.body).to include_json({
-          "status": "OK",
-          "results": [
-            {
-              "latitude": 36.0,
-              "longitude": 136.0,
-              "distance": (be_a_kind_of(Float))
-            },
-            {
-              "latitude": 36.1,
-              "longitude": 136.1,
-              "distance": (be_a_kind_of(Float))
-            }
-          ]
-        })
-        expect(response.body).not_to include_json({
-          "results": [
-            {
-              "latitude": 37.1,
-              "longitude": 137.1,
-              "status": 'closed'
-            }
-          ]
-        })
+      context 'basic case' do
+        it do
+          get api_v1_spots_path, params:{n:37, s:35, w:135, e:137}
+          expect(response).to have_http_status(200)
+          expect(response.body).to include_json({
+            "status": "OK",
+            "results": [
+              {
+                "latitude": 36.0,
+                "longitude": 136.0,
+                "distance": (be_a_kind_of(Float))
+              },
+              {
+                "latitude": 36.1,
+                "longitude": 136.1,
+                "distance": (be_a_kind_of(Float))
+              }
+            ]
+          })
+          expect(response.body).not_to include_json({
+            "results": [
+              {
+                "latitude": 37.1,
+                "longitude": 137.1,
+                "status": 'closed'
+              }
+            ]
+          })
+        end
       end
-      it 'contains_invalid' do
-        get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, contains_invalid:true}
-        expect(response.body).to include_json({
-          "results": [
-            {},
-            {
-              "latitude": 36.0,
-              "longitude": 136.1,
-              "status": 'closed'
-            }
-          ]
-        })
+      context 'max_spots' do
+        it do
+          get api_v1_spots_path, params:{n:36.5, s:36.0, w:136, e:136.5, max_spots:1}
+          expect(response).to have_http_status(200)
+          expect(response.body).to include_json({
+            "status": "OK",
+            "results": []
+          })
+        end
+        it do
+          get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, max_spots:1}
+          expect(response).to have_http_status(200)
+          expect(response.body).to include_json({
+            "status": "TOO_MUCH_SPOTS",
+          })
+        end
+      end
+      context 'contains_invalid' do
+        it do
+          get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, contains_invalid:true}
+          expect(response.body).to include_json({
+            "results": [
+              {},
+              {
+                "latitude": 36.0,
+                "longitude": 136.1,
+                "status": 'closed'
+              }
+            ]
+          })
+        end
       end
     end
     context 'tag' do
