@@ -43,7 +43,7 @@ class Spot < ApplicationRecord
   end
 
   def add_tags(tag_names)
-    tag_names.split(/ *,+ */).each do |tag_name|
+    Tag.split(tag_names).each do |tag_name|
       tag_name = tag_name.gsub(/[\[\]\"]/,'').strip
       tag = Tag.find_by(name:tag_name)
       if (tag.nil?)

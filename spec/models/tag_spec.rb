@@ -20,4 +20,18 @@ RSpec.describe Tag, type: :model do
     end
   end
 
+  describe "Tag.split" do
+    context "normal case" do
+      subject do
+        Tag.split("A,B")
+      end
+      it { is_expected.to eq ['A','B'] }
+    end
+    context "other case" do
+      subject do
+        Tag.split("A,, B,C ,")
+      end
+      it { is_expected.to eq ['A','B','C'] }
+    end
+  end
 end

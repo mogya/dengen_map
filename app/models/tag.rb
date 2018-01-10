@@ -12,4 +12,8 @@ class Tag < ApplicationRecord
   def to_s
     "#{name}(#{type})"
   end
+
+  def self.split(tags)
+    tags.split(/ *,+ */)
+  end
 end

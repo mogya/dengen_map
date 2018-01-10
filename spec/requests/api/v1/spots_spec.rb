@@ -101,6 +101,22 @@ RSpec.describe "Spots", type: :request do
         })
       end
     end
+    context 'tag with space' do
+      before do
+        create :tag_other, name:'A', importance:1
+        create :tag_other, name:'B', importance:2
+        create :ee_datum_with_spot, title:'A', latitude:36.01, longitude:136, tag:'A'
+        create :ee_datum_with_spot, title:'A,B', latitude:36.02, longitude:136, tag:'A,B'
+      end
+      it do
+        get api_v1_spots_path, params:{n:37, s:35, w:135, e:137, tags:'C, B'}
+        expect(response.body).to include_json({
+          "results": [
+            { "title": 'A,B' },
+          ]
+        })
+      end
+    end
     context 'category' do
       before do
         create :tag_category, name:'A', importance:4

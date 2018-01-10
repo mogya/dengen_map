@@ -65,14 +65,14 @@ class EeDatum < ApplicationRecord
     self.wireless.gsub!('Wi-FiNex','Wi-Fi Nex')
     self.wireless.gsub!('Wi-FiNex','Wi-Fi Nex')
     self.wireless.gsub!('フレッツ・スポット（NTT東日本）','フレッツ・スポット')
-    self.wireless = self.wireless.split(/ *, */).uniq.join(',')
+    self.wireless = Tag.split(self.wireless).uniq.join(',')
     self.tag.gsub!('電源あり','電源:お客様用コンセント')
     self.tag.gsub!('電源OK','電源:お客様用コンセント')
     self.tag.gsub!('電源:実績あり','電源:壁コンセント')
     self.tag.gsub!('電源NG','電源:NG')
     self.tag.gsub!('電源:なし','電源:NG')
     self.tag.gsub!('携帯充電器','電源:充電器貸出')
-    self.tag = self.tag.split(/ *, */).uniq.join(',')
+    self.tag = Tag.split(self.tag).uniq.join(',')
   end
 
   def open?

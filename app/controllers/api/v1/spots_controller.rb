@@ -27,9 +27,9 @@ class Api::V1::SpotsController < Api::V1::BaseController
       ret[:e] = params[:e].to_f
       ret[:latitude] = params[:latitude].to_f if params[:latitude]
       ret[:longitude] = params[:longitude].to_f if params[:longitude]
-      ret[:tags] = params[:tags].split(',') if params[:tags]
-      ret[:categories] = params[:categories].split(',') if params[:categories]
-      ret[:wireless] = params[:wireless].split(',') if params[:wireless]
+      ret[:tags] = Tag.split(params[:tags]) if params[:tags]
+      ret[:categories] = Tag.split(params[:categories]) if params[:categories]
+      ret[:wireless] = Tag.split(params[:wireless]) if params[:wireless]
       ret[:limit] = params[:limit].to_i if params[:limit]
       ret[:contains_invalid] = true if params[:contains_invalid]
       ret[:compact] = true if params[:compact]
