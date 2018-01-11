@@ -8,11 +8,11 @@
         <ul class="spot__icons">
           <li class='spot_icon'
             :style='`background-image: url(${tag.image});background-position: 0 0;`'
-            :title='image'
+            title="image"
           />
           <li class='spot_icon'
             :style='`background-image: url(${tag.sprite_url});background-position: -${tag.sprite_x}px 0;`'
-            :title='sprite'
+            title="sprite"
           />
         </ul>
         <table class="clearfix">
@@ -35,11 +35,11 @@
         <ul class="spot__icons">
           <li class='spot_icon'
             :style='`background-image: url(${tag.image});background-position: 0 0;`'
-            :title='image'
+            title="image"
           />
           <li class='spot_icon'
             :style='`background-image: url(${tag.sprite_url});background-position: -${tag.sprite_x}px 0;`'
-            :title='sprite'
+            title="sprite"
           />
         </ul>
         <table class="clearfix">
@@ -62,11 +62,11 @@
         <ul class="spot__icons">
           <li class='spot_icon'
             :style='`background-image: url(${tag.image});background-position: 0 0;`'
-            :title='image'
+            title="image"
           />
           <li class='spot_icon'
             :style='`background-image: url(${tag.sprite_url});background-position: -${tag.sprite_x}px 0;`'
-            :title='sprite'
+            title="sprite"
           />
         </ul>
         <table class="clearfix">
