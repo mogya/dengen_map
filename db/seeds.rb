@@ -875,3 +875,15 @@ Tag::Wifi.find_or_create_by!({
   image_id:27,
   sprite_pos:26
 })
+Tag::Wifi.find_or_create_by!({
+  id:114,
+  name:'USEN SPOT',
+  image_id:20,
+  sprite_pos:19
+})
+Tag::Wifi.find_or_create_by!({
+  id:115,
+  name:'PRONTO FREE Wi-Fi',
+  image_id:20,
+  sprite_pos:19
+})
