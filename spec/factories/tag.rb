@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :tag do |tag|
     name 'SoftbankWifi'
     type 'Tag::Wifi'

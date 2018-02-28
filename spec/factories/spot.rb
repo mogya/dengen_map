@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :spot, class: Spot do |spot|
     name 'カフェ リンゴット'
     status Spot.statuses['status_hidden']

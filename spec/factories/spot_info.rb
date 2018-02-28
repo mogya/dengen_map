@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :spot_info, class: SpotInfo do
     type 'SpotInfo::Smoke'
     value SpotInfo::Smoke.values['separated']

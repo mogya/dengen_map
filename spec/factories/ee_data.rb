@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :ee_datum do
     sequence(:spot_id){|i| i}
     status "open"
