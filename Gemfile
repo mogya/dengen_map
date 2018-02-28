@@ -5,7 +5,7 @@ gem 'dotenv-rails'
 
 gem 'unicorn'
 
-gem 'pg'
+gem 'pg', '~> 0.18'
 gem 'activerecord-postgis-adapter'
 
 gem 'sass-rails'
