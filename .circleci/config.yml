@@ -42,7 +42,7 @@ jobs:
 
       - run:
           name: Database setup
-          command: bin/rails db:setup --trace
+          command: bin/rails db:test:prepare --trace
 
       # Run rspec in parallel
       - type: shell
