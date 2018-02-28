@@ -8,7 +8,7 @@ RUN yum -y update && yum install -y \
   openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel \
   mariadb mariadb-server mariadb-devel mariadb-libs
 RUN yum -y update && yum install -y \
-  gcc gcc-c++ bzip2 make autoconf
+  gcc gcc-c++ bzip2 make autoconf nodejs docker
 
 ENV RUBY_MAJOR 2.3
 ENV RUBY_VERSION 2.3.2
@@ -32,7 +32,6 @@ RUN gem install bundler \
 ENV BUNDLE_APP_CONFIG $GEM_HOME
 
 RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
-RUN yum -y install nodejs
 
 RUN mkdir -p /app
 COPY ./Gemfile /app/

@@ -248,6 +248,8 @@ GEM
       rspec-mocks (~> 3.7.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.1)
+    rspec_junit_formatter (0.3.0)
+      rspec-core (>= 2, < 4, != 2.12.0)
     ruby_parser (3.11.0)
       sexp_processor (~> 4.9)
     sass (3.5.5)
@@ -335,6 +337,7 @@ DEPENDENCIES
   rspec-json_expectations
   rspec-parameterized
   rspec-rails
+  rspec_junit_formatter
   sass-rails
   sdoc
   spring
@@ -343,4 +346,4 @@ DEPENDENCIES
   yaml_db
 
 BUNDLED WITH
-   1.14.6
+   1.16.1

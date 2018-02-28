@@ -11,6 +11,8 @@ development:
 test:
   <<: *default
   database: test
+circleci:
+  <<: *default
 production:
   <<: *default
   database: production

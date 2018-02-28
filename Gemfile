@@ -35,6 +35,7 @@ group :development, :test do
   gem 'rspec-activemodel-mocks'
   gem 'rspec-parameterized'
   gem 'rspec-json_expectations'
+  gem 'rspec_junit_formatter'
   gem 'factory_bot_rails'
   gem "capybara"
 end
