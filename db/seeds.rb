@@ -887,3 +887,10 @@ Tag::Wifi.find_or_create_by!({
   image_id:20,
   sprite_pos:19
 })
+Tag::Wifi.find_or_create_by!({
+  id:116,
+  name:'LOTTERIA Free Wi-Fi',
+  image_id:20,
+  sprite_pos:19
+})
+
