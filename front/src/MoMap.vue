@@ -13,7 +13,7 @@
       @idle="onIdle"
       @resize="onEvent('resize',$event)"
       ref='gmapMap'
-    >
+      >
       <gmap-marker
         v-if="showCenterPin"
         :position="{ lat: initial.lat, lng: initial.lng }"
@@ -46,22 +46,42 @@
         </gmap-info-window>
       </gmap-marker>
     </gmap-map>
+    <div class='momap_help' v-show="showHelp" >
+      <article>
+        <h2>
+          <i class="icon-help-circled" aria-hidden="true"></i>
+          表示するお店について
+        </h2>
+        <ul>
+          <li> <i class="icon-mobile" aria-hidden="true"></i> 充電：スマホの充電に適したお店が表示されます(コワーキングスペースなどが除外されます) </li>
+          <li> <i class="icon-laptop" aria-hidden="true"></i> パソコン：パソコンで仕事をするのに適したお店が表示されます(ココイチや充電スタンドなどが除外されます) </li>
+          <li><a href='//oasis.mogya.com/responsive/icon_comments' target='_blank'>アイコン一覧</a></li>
+        </ul>
+        <button type="button" class="close" aria-label="Close" @click="showHelp=false;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </article>
+    </div>
     <div style='display:none;'>
       <div id='js-search-control' class='gmap-control'>
-        <span @click="onSearchCancelControlClick" v-show="showSearchControl">
-          <i class="icon-caret-right"></i>
+        <span v-show="showSearchControl">
+          <i class="icon-caret-right" @click="onSearchCancelControlClick"></i>
         </span>
-        <input type='text' placeholder='地名や駅名を入力'
-           v-show="showSearchControl" @keyup.enter="search" v-model="searchWord">
+        <input type='text' placeholder='地名や駅名を入力' @keyup.enter="search" v-model="searchWord"  v-show="showSearchControl">
         </input>
-        <span @click="onSearchControlClick">
-          <i class="icon-search" aria-hidden="true"></i>
-        </span>
+        <button>
+          <i class="icon-search" aria-hidden="true" @click="onSearchControlClick"></i>
+        </button>
       </div>
       <div id='js-gps-control' class='gmap-control'>
-        <span @click="onGpsControlClick">
+        <button @click="onGpsControlClick">
           <i class="icon-location-arrow" aria-hidden="true"></i>
-        </span>
+        </button>
+      </div>
+      <div id='js-help-control' class='gmap-control'>
+        <button @click="showHelp=true;">
+          <i class="icon-help-circled" aria-hidden="true"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -87,8 +107,23 @@
       color: rgb(25,25,25);
       font-size: 16px;
       line-height: 40px;
-      padding-left: 15px;
-      padding-right: 15px;
+    }
+    button{
+      width: 46px;
+      height: 40px;
+      i{
+        font-size: 1.5em;
+      }
+    }
+  }
+  #js-search-control{
+    input{
+      border: 1px solid #999;
+      max-width: 280px;
+      font-size: 16px;
+    }
+    input:hover{
+      background: #acf3ff;
     }
   }
   .gmap-info-window{
@@ -114,14 +149,17 @@
       max-width: 20em;
     }
   }
-  #js-search-control{
-    input{
-      max-width: 280px;
-      font-size: 16px;
-    }
-    input:hover{
-      background: #acf3ff;
-    }
+}
+.momap_help{
+  background-color: #FFF;
+  left: 0;
+  position: absolute;
+  top: 0;
+  button.close{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 2em;
   }
 }
 </style>
@@ -156,7 +194,8 @@ export default {
       currentSpot: null,
       searchWord: '',
       showSearchControl: false,
-      movingByInfoWindow: false
+      movingByInfoWindow: false,
+      showHelp: false,
     }
   },
   props:{
@@ -265,12 +304,16 @@ export default {
     },
     addMapControls(){
       const searchControlDiv = document.getElementById('js-search-control');
-      searchControlDiv.index = 2;
+      searchControlDiv.index = 10;
       this.gmapObj.controls[google.maps.ControlPosition.TOP_RIGHT].push(searchControlDiv);
 
       const gpsControlDiv = document.getElementById('js-gps-control');
-      gpsControlDiv.index = 1;
+      gpsControlDiv.index = 5;
       this.gmapObj.controls[google.maps.ControlPosition.TOP_RIGHT].push(gpsControlDiv);
+
+      const helpControlDiv = document.getElementById('js-help-control');
+      helpControlDiv.index = 1;
+      this.gmapObj.controls[google.maps.ControlPosition.TOP_RIGHT].push(helpControlDiv);
     }
   },
   components:{

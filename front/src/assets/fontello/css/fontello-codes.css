@@ -1,13 +1,20 @@
 
 .icon-close:before { content: '\e800'; } /* '' */
-.icon-list:before { content: '\e801'; } /* '' */
+.icon-comment:before { content: '\e802'; } /* '' */
 .icon-caret-right:before { content: '\e803'; } /* '' */
 .icon-search:before { content: '\e804'; } /* '' */
 .icon-caret-down:before { content: '\e805'; } /* '' */
 .icon-caret-up:before { content: '\e806'; } /* '' */
 .icon-caret-left:before { content: '\e807'; } /* '' */
+.icon-pencil:before { content: '\e808'; } /* '' */
+.icon-attention:before { content: '\e809'; } /* '' */
+.icon-attention-circled:before { content: '\e80a'; } /* '' */
+.icon-help-circled:before { content: '\e80b'; } /* '' */
+.icon-mail:before { content: '\e80c'; } /* '' */
+.icon-location:before { content: '\f031'; } /* '' */
+.icon-plus-squared:before { content: '\f0fe'; } /* '' */
 .icon-laptop:before { content: '\f109'; } /* '' */
 .icon-mobile:before { content: '\f10b'; } /* '' */
 .icon-location-arrow:before { content: '\f124'; } /* '' */
-.icon-exclamation:before { content: '\f12a'; } /* '' */
+.icon-map-pin:before { content: '\f276'; } /* '' */
 .icon-map-o:before { content: '\f278'; } /* '' */
