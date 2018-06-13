@@ -9,8 +9,6 @@ gem 'pg', '~> 0.18'
 gem 'activerecord-postgis-adapter'
 
 gem 'sass-rails'
-gem 'coffee-rails'
-gem 'jquery-rails'
 gem 'jbuilder'
 gem 'sdoc', group: :doc
 
