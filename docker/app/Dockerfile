@@ -10,8 +10,8 @@ RUN yum -y update && yum install -y \
 RUN yum -y update && yum install -y \
   gcc gcc-c++ bzip2 make autoconf nodejs docker
 
-ENV RUBY_MAJOR 2.3
-ENV RUBY_VERSION 2.3.2
+ENV RUBY_MAJOR 2.5
+ENV RUBY_VERSION 2.5.1
 RUN yum -y update && yum -y install ruby && yum clean all \
   && mkdir -p /usr/src/ruby \
   && curl -SL "http://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-$RUBY_VERSION.tar.bz2" \
