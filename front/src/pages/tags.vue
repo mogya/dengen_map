@@ -141,9 +141,9 @@
 </style>
 <script>
 import Vue from 'vue';
-import MoApiV1 from './api/MoApiV1';
-import MoTag from './MoTag';
-import errorNotification from './util/ErrorNotification';
+import MoApiV1 from '@/api/MoApiV1';
+import MoTag from '@/components/MoTag';
+import errorNotification from '@/util/ErrorNotification';
 
 const moAPI = new MoApiV1();
 

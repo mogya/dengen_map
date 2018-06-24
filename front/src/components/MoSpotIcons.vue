@@ -33,7 +33,7 @@
 </style>
 
 <script>
-import IconData from './util/IconData.js';
+import IconData from '@/util/IconData.js';
 
 export default {
   name: 'MoSpotIcons',

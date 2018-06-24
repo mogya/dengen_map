@@ -165,10 +165,10 @@
 </style>
 
 <script>
-import MoSpotIcons from './MoSpotIcons.vue';
+import MoSpotIcons from '@/components/MoSpotIcons.vue';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import Vue from 'vue';
-import errorNotification from './util/ErrorNotification';
+import errorNotification from '@/util/ErrorNotification';
 
 Vue.use(VueGoogleMaps, {
   installComponents: true,

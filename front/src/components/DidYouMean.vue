@@ -43,7 +43,7 @@
 </style>
 
 <script>
-import MoApi from './api/MoApi';
+import MoApi from '@/api/MoApi';
 const moAPI = new MoApi();
 
 export default {

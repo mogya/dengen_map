@@ -69,9 +69,9 @@
 </style>
 
 <script>
-import Responsible from './util/Responsible.js';
-import MoSpotIcons from './MoSpotIcons.vue';
-import MoAdvertisement from './MoAdvertisement.vue';
+import Responsible from '@/util/Responsible.js';
+import MoSpotIcons from '@/components/MoSpotIcons.vue';
+import MoAdvertisement from '@/components/MoAdvertisement.vue';
 const responsible = new Responsible;
 
 export default {

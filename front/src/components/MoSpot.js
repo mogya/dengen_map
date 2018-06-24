@@ -1,4 +1,4 @@
-import CategoryData from './util/CategoryData.js';
+import CategoryData from '@/util/CategoryData.js';
 
 export default class MoSpot extends Object{
   constructor(spot) {

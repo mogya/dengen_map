@@ -141,17 +141,17 @@
 </style>
 <script>
 import Vue from 'vue';
-import MoAdvertisement from './MoAdvertisement.vue';
-import MoMap from './MoMap.vue';
-import MoMenu from './MoMenu.vue';
-import MoList from './MoList.vue';
-import MoSpot from './MoSpot.js';
-import MoUrlParams from './MoUrlParams.js';
-import MoStorage from './MoStorage.js';
-import MoApi from './api/MoApi';
-import MoApiV1 from './api/MoApiV1';
-import DidYouMean from './DidYouMean.vue';
-import errorNotification from './util/ErrorNotification';
+import MoAdvertisement from '@/components/MoAdvertisement.vue';
+import MoMap from '@/components/MoMap.vue';
+import MoMenu from '@/components/MoMenu.vue';
+import MoList from '@/components/MoList.vue';
+import MoSpot from '@/components/MoSpot.js';
+import MoUrlParams from '@/components/MoUrlParams.js';
+import MoStorage from '@/components/MoStorage.js';
+import MoApi from '@/api/MoApi';
+import MoApiV1 from '@/api/MoApiV1';
+import DidYouMean from '@/components/DidYouMean.vue';
+import errorNotification from '@/util/ErrorNotification';
 
 const moAPI = new MoApiV1();
 const urlParams = new MoUrlParams();

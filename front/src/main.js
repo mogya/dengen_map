@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
-import MapView from './map.vue';
-import TagsView from './tags.vue';
-import ContributeView from './contribute.vue';
-import './assets/bootstrap/css/bootstrap.min.css';
-import './assets/fontello/css/fontello.css';
+import MapView from '@/pages/map.vue';
+import TagsView from '@/pages/tags.vue';
+import ContributeView from '@/pages/contribute.vue';
+import '@/assets/bootstrap/css/bootstrap.min.css';
+import '@/assets/fontello/css/fontello.css';
 
 
 Vue.use(VueRouter);
