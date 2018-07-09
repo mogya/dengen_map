@@ -63,11 +63,22 @@ html, body, #wrapper, #wrapper>div {
 }
 .smp{
   .area__main{
-    bottom: 100px;
+    bottom: 0;
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
+    h1{
+      margin: 0;
+    }
+    >p{
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
+    >ul{
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
   }
 }
 .momenu{
@@ -93,7 +104,7 @@ html, body, #wrapper, #wrapper>div {
     bottom: 0;
     left: 0;
     position: absolute;
-    top: 75px;
+    top: 165px;
     width: 100%;
     z-index: z(default_layer);
   }
