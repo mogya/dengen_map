@@ -1,6 +1,36 @@
 <template>
 <div :class="{ pc:!smpMode, smp:smpMode }" >
-<h1>contribute</h1>
+  <div class='area__main'>
+    <h1>情報提供</h1>
+    <p>電源の有無にかかわらず、すべてのお店のデータを表示しています</p>
+    <ul>
+      <li>この中にない場合 → <a href='/pc/contrib'>情報提供フォーム</a></li>
+      <li>この中にある場合 → コメント欄に情報をお寄せください</li>
+    </ul>
+    <momap
+      :initial="initialMapData()"
+      :spots="spots"
+      :showCenterPin="showCenterPin()"
+      :contribute="true"
+      ref='momap'
+      @idle.once="onFirstIdle"
+      @idle="onIdle"
+      @dragend="onDragend"
+      @resize="onResize"
+      @zoom_changed="onUpdateZoom"
+      @searched="onSearched"
+      @error="onError"
+      @current-spot-changed="onCurrentSpotChanged"
+    >
+    </momap>
+    <div class='momap_loading' v-show="loading && message===null">
+      <img src="https://oasis.mogya.com/images/design/loadingBar.gif" />
+    </div>
+    <div class='momap_message' v-show="message!==null">
+      <p>{{message}}</p>
+    </div>
+    <molist ref='molist' :spots="spots" v-if='!smpMode'></molist>
+  </div>
 </div>
 </template>
 <style lang="scss">
@@ -23,20 +53,11 @@ html, body, #wrapper, #wrapper>div {
   padding: 0px;
   position: relative;
 }
-.area__ad_header,.area__ad_footer{
-  height: 100px;
-  width: 100%;
-  z-index: z(ad_layer);
-}
-.area__ad_footer{
-  position: absolute;
-  bottom: 0;
-}
 .pc{
   .area__main{
     position: absolute;
     left: 0;
-    top: 100px;
+    top: 0;
     width: 100%;
   }
 }
@@ -49,7 +70,6 @@ html, body, #wrapper, #wrapper>div {
     width: 100%;
   }
 }
-
 .momenu{
   position: absolute;
   left: 0;
@@ -64,7 +84,6 @@ html, body, #wrapper, #wrapper>div {
     height: 400px;
     left: 0;
     position: absolute;
-    top: 75px;
     z-index: z(default_layer);
     width: 100%;
   }
@@ -99,26 +118,26 @@ html, body, #wrapper, #wrapper>div {
 .molist{
   bottom: 0;
   position: absolute;
-  top: 480px;
+  top: 565px;
   width: 100%;
 }
 </style>
 <script>
 import Vue from 'vue';
-import MoAdvertisement from '@/components/MoAdvertisement.vue';
 import MoMap from '@/components/MoMap.vue';
-import MoMenu from '@/components/MoMenu.vue';
 import MoList from '@/components/MoList.vue';
 import MoSpot from '@/components/MoSpot.js';
 import MoUrlParams from '@/components/MoUrlParams.js';
 import MoStorage from '@/components/MoStorage.js';
 import MoApi from '@/api/MoApi';
+import MoApiV1 from '@/api/MoApiV1';
 import DidYouMean from '@/components/DidYouMean.vue';
 import errorNotification from '@/util/ErrorNotification';
 
-const moAPI = new MoApi();
+const moAPI = new MoApiV1();
 const urlParams = new MoUrlParams();
 const storage = new MoStorage();
+const max_spots = 200;
 
 // https://github.com/xkjyeah/vue-google-maps
 import * as VueGoogleMaps from 'vue2-google-maps';
@@ -143,7 +162,7 @@ Vue.use(VueGoogleMaps, {
 // });
 
 export default {
-  name: 'Contribute',
+  name: 'App',
   data(){
     return {
       spots:[],
@@ -154,11 +173,8 @@ export default {
     }
   },
   components: {
-    moadvertisement: MoAdvertisement,
     momap: MoMap,
-    momenu: MoMenu,
     molist: MoList,
-    didyoumean: DidYouMean
   },
   created(){
     this.smpMode = (screen.height<800);
@@ -171,7 +187,6 @@ export default {
         this.momenu = this.$refs.momenu;
         this.molist = this.$refs.molist;
       }
-      this.adjustMapSize();
       this.update();
     },
     onResize(){
@@ -214,52 +229,49 @@ export default {
     },
     onMenuOpened(open){
       ga('send', 'event', 'map', 'MenuOpened');
-      // this.adjustMapSize();
-    },
-    adjustMapSize(){
-      // if (this.smpMode){
-      //   const gmapDiv = document.getElementsByClassName('vue-map')[0];
-      //   const momenuHeight = document.getElementsByClassName('momenu')[0].offsetHeight + 10;
-      //   // const adHeaderHeight = document.getElementsByClassName('area__ad_header')[0].offsetHeight;
-      //   const adFooterHeight = document.getElementsByClassName('area__ad_footer')[0].offsetHeight;
-      //   gmapDiv.style.height = `${window.innerHeight-momenuHeight-adFooterHeight}px`;
-      //   if (google && google.maps){
-      //     google.maps.event.trigger(this.momap.gmapObj,'resize');
-      //   }
-      // }
     },
     update(){
       this.loading = true;
       this.message = null;
       let tasks = [];
-      ['電源OK','電源:実績あり'].forEach((power_tag)=>{
-        const params = {
-          tag: power_tag,
-          n: this.momap.bounds.n,
-          s: this.momap.bounds.s,
-          w: this.momap.bounds.w,
-          e: this.momap.bounds.e,
-          lat: this.momap.lat,
-          lng: this.momap.lng
-        }
-        tasks.push( moAPI.search(params) );
-      });
-      Promise.all(tasks).then(
-        ([result1,result2]) => {
-          this.message = null;
-          this.spots.splice(0, this.spots.length);
-          this.addSpots(result1.data);
-          this.addSpots(result2.data);
-          this.storeSettings();
-          this.loading = false;
+      let params = {
+        tags: '',
+        n: this.momap.bounds.n,
+        s: this.momap.bounds.s,
+        w: this.momap.bounds.w,
+        e: this.momap.bounds.e,
+        max_spots: max_spots
+      }
+      if (!this.smpMode){
+        params.lat = this.momap.lat;
+        params.lng = this.momap.lng;
+      }
+      moAPI.spots(params).then(
+        (result) => {
+          try{
+            if (result.data.status === 400){
+              // console.log(result.data)
+            }else if (result.data.status == 'TOO_MUCH_SPOTS'){
+              this.onErrorTooMuchSpots()
+            }else if (result.data.status !== 'OK'){
+              errorNotification(result);
+              errorNotification(result.message);
+              errorNotification(result.data.message);
+            }else{
+              // console.log(`moAPI results.length:${result.data.results.length}`);
+              this.message = null;
+              this.spots.splice(0, this.spots.length);
+              this.addSpots(result.data.results);
+              this.storeSettings();
+            }
+          }
+          finally{
+            this.loading = false;
+          }
         },
         (err)=>{
           errorNotification(err);
           errorNotification(err.message);
-          if (err.response) {
-            errorNotification(err.response.data.message);
-            this.onErrorTooMuchSpots();
-          };
           this.loading = false;
         }
       );
@@ -267,41 +279,23 @@ export default {
     storeSettings(){
       urlParams.setLatLng( this.momap.lat, this.momap.lng );
       urlParams.set('z',this.momap.zoom);
-      if (this.momenu.pcMode){
-        storage.set('type','pc');
-      }else{
-        storage.set('type','mobile');
-      }
-      if (this.momenu.showNetCafe){
-        storage.set('netcafe','true');
-      }else{
-        storage.set('netcafe','false');
-      }
     },
-    addSpots(data){
-      data.results.forEach((spot)=>{
+    addSpots(spots){
+      spots.forEach((spot)=>{
         if (this.spotFilter(spot)){
-          this.spots.push(new MoSpot(spot));
-        }else{
-          // console.log(`skiped: (${spot.id})${spot.title}`);
+          let v = this.spots.findIndex( (s)=>{
+            return (s.id === spot.id)
+          } );
+          if (v < 0){
+            // console.log(`adding ${spot.id}:${spot.title}`);
+            this.spots.push(new MoSpot(spot));
+          }else{
+            // console.log(`skip ${spot.id}:${spot.title}`);
+          }
         }
-      });
+      },this);
     },
     spotFilter(spot){
-      // console.log(`${spot.id}:${spot.title}`);
-      // console.log(`showNetCafe:${this.momenu.showNetCafe}`);
-      // console.log(`NetCafe:${spot.tags.indexOf('ネットカフェ')}`);
-      if (this.momenu.pcMode){
-        if (0 > spot.tags.indexOf('用途:ノマド') ){
-          return false;
-        }
-        if (!this.momenu.showNetCafe && (0 <= spot.tags.indexOf('ネットカフェ')) ){
-          return false;
-        }
-      }
-      if (!this.momenu.pcMode && (0 > spot.tags.indexOf('用途:充電')) ){
-        return false;
-      }
       return true;
     },
     initialMapData(){
@@ -316,6 +310,9 @@ export default {
         pcMode: ( storage.get('type')==='pc' ),
         showNetCafe: ( storage.get('netcafe')==='true' ),
       }
+    },
+    showCenterPin(){
+      return (urlParams.getTitle().length>0)
     }
   }
 };

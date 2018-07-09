@@ -17,6 +17,7 @@
       :initial="initialMapData()"
       :spots="spots"
       :showCenterPin="showCenterPin()"
+      :contribute="false"
       ref='momap'
       @idle.once="onFirstIdle"
       @idle="onIdle"
@@ -271,9 +272,8 @@ export default {
       moAPI.spots(params).then(
         (result) => {
           try{
-            console.log(`moAPI return.`);
             if (result.data.status === 400){
-              console.log(result.data)
+              // console.log(result.data)
             }else if (result.data.status == 'TOO_MUCH_SPOTS'){
               this.onErrorTooMuchSpots()
             }else if (result.data.status !== 'OK'){
@@ -281,7 +281,7 @@ export default {
               errorNotification(result.message);
               errorNotification(result.data.message);
             }else{
-              console.log(`moAPI results.length:${result.data.results.length}`);
+              // console.log(`moAPI results.length:${result.data.results.length}`);
               this.message = null;
               this.spots.splice(0, this.spots.length);
               this.addSpots(result.data.results);
@@ -320,10 +320,10 @@ export default {
             return (s.id === spot.id)
           } );
           if (v < 0){
-            console.log(`adding ${spot.id}:${spot.title}`);
+            // console.log(`adding ${spot.id}:${spot.title}`);
             this.spots.push(new MoSpot(spot));
           }else{
-            console.log(`skip ${spot.id}:${spot.title}`);
+            // console.log(`skip ${spot.id}:${spot.title}`);
           }
         }
       },this);

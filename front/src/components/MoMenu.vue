@@ -38,7 +38,7 @@
     <div class='momenu__expanded' v-show='showMore'>
       <section class='contact'>
         <article>
-          <a href="https://oasis.mogya.com/contrib">
+          <a :href="`https://oasis.mogya.com/contribute?ll=${this.lat},${this.lng}&z=${this.zoom}`" >
             <h2 >
               <i class="icon-map-pin" aria-hidden="true"></i>
               スポットを追加
@@ -136,6 +136,8 @@
 </style>
 
 <script>
+import MoUrlParams from '@/components/MoUrlParams.js';
+const urlParams = new MoUrlParams();
 
 export default {
   name: 'MoMenu',
@@ -145,6 +147,9 @@ export default {
       pcMode: this.initial.pcMode,
       showNetCafe: this.initial.showNetCafe,
       phoneCareer: [],
+      lat: urlParams.getLat(),
+      lng: urlParams.getLng(),
+      zoom: urlParams.get('z')
     }
   },
   props:{
@@ -159,6 +164,11 @@ export default {
   },
   methods: {
     onClickMore(){
+      // urlParamsの更新を検知する案がないので、仮実装
+      this.lat = urlParams.getLat()
+      this.lng = urlParams.getLng()
+      this.zoom = urlParams.get('z')
+
       this.showMore = !this.showMore
       this.$nextTick(()=>{
         this.$emit('menuOpened', this.showMore);

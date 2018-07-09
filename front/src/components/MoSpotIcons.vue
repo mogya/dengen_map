@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mo_spot_icons">
     <ul class="spot__icons">
       <li
         class='spot_icon'
@@ -18,6 +18,9 @@
 </template>
 
 <style>
+.mo_spot_icons{
+  height: 40px;
+}
 .spot__icons{
   height: 30px;
   overflow: hidden;

@@ -36,12 +36,13 @@
           <div class='gmap-info-window'>
             <p class='title'><a :href='spot.moUrl'>{{spot.title}}</a></p>
             <p class='address'>{{spot.address}}</p>
-            <div>
-              <mo-spot-icons :spot='spot' style="float:left;" ></mo-spot-icons>
-              <span class="spot_more" style="float:right;">
+            <mo-spot-icons :spot='spot' style="float:left;" ></mo-spot-icons>
+            <span class="spot_more" style="float:right;" v-if="!contribute">
               <a class="spot_name btn btn-primary" :href="spot.moUrl">詳細</a>
-              </span>
-            </div>
+            </span>
+            <p class="spot_more" v-if="contribute">
+              <a class="spot_name btn btn-primary" :href="spot.moUrl+'#comment_form'">このスポットの情報を提供</a>
+            </p>
           </div>
         </gmap-info-window>
       </gmap-marker>
@@ -209,7 +210,8 @@ export default {
       }
     },
     spots: {type:Array, required:false, default:[]},
-    showCenterPin:Boolean
+    showCenterPin:Boolean,
+    contribute:Boolean
   },
   methods: {
     onUpdateCenter(center){
