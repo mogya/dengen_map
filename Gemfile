@@ -1,41 +1,43 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0'
 gem 'dotenv-rails'
+gem 'rails', '~> 5.0.0'
 
 gem 'unicorn'
 
-gem 'pg', '~> 0.18'
 gem 'activerecord-postgis-adapter'
+gem 'pg', '~> 0.18'
 
-gem 'sass-rails'
 gem 'jbuilder'
+gem 'sass-rails'
 gem 'sdoc', group: :doc
 
-gem 'haml-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
+gem 'haml-rails'
 
-gem 'devise'
-gem 'aws-ses', :require => 'aws/ses'
+gem 'aws-ses', require: 'aws/ses'
 gem 'daemons'
+gem 'devise'
 gem 'yaml_db'
 
 gem 'addressable'
 
 group :development, :test do
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'byebug'
   gem 'better_errors'
-  gem 'spring'
-  gem 'rspec-rails'
-  gem 'rspec-activemodel-mocks'
-  gem 'rspec-parameterized'
-  gem 'rspec-json_expectations'
-  gem 'rspec_junit_formatter'
+  gem 'byebug'
+  gem 'capybara'
   gem 'factory_bot_rails'
-  gem "capybara"
+  gem 'pry-byebug'
+  gem 'pry-rails'
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec-json_expectations'
+  gem 'rspec-parameterized'
+  gem 'rspec-rails'
+  gem 'rspec_junit_formatter'
+  gem 'spring'
 end
 group :development do
   gem 'web-console'
