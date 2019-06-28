@@ -10,8 +10,8 @@ RUN yum -y update && yum install -y \
 RUN yum -y update && yum install -y \
   gcc gcc-c++ bzip2 make autoconf nodejs docker
 
-ENV RUBY_MAJOR 2.5
-ENV RUBY_VERSION 2.5.1
+ENV RUBY_MAJOR 2.6
+ENV RUBY_VERSION 2.6.3
 RUN yum -y update && yum -y install ruby && yum clean all \
   && mkdir -p /usr/src/ruby \
   && curl -SL "http://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-$RUBY_VERSION.tar.bz2" \
@@ -31,7 +31,7 @@ RUN gem install bundler \
   && bundle config --global bin "$GEM_HOME/bin"
 ENV BUNDLE_APP_CONFIG $GEM_HOME
 
-RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
+RUN curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
 
 RUN mkdir -p /app
 COPY ./Gemfile /app/
