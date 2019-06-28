@@ -1,23 +1,23 @@
+# frozen_string_literal: true
+
 class SpotInfo::Powersupply < SpotInfo
-  enum value: [ :ng, :possible, :ok]
+  enum value: %i[ng possible ok]
 
   def to_s
     ret = value_string
     ret += "(#{detail})" unless detail.nil?
-    return ret
+    ret
   end
 
   private
 
   def value_string
-    case
-    when ng?
+    if ng?
       '利用不可'
-    when possible?
+    elsif possible?
       '壁コンセント(許可が必要)'
-    when ok?
+    elsif ok?
       'お客様用コンセントあり'
     end
   end
-
 end

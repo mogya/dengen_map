@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 module TaskLogging
   def task(*args, &block)
     Rake::Task.define_task(*args) do |task|
       if block_given?
-        Rails.logger.info "[#{task.name}] started" if Rails.logger
+        Rails.logger&.info "[#{task.name}] started"
         begin
           block.call(task)
-          Rails.logger.info "[#{task.name}] finished" if Rails.logger
-        rescue => exception
-          Rails.logger.info "[#{task.name}] failed" if Rails.logger
-          raise exception
+          Rails.logger&.info "[#{task.name}] finished"
+        rescue StandardError => e
+          Rails.logger&.info "[#{task.name}] failed"
+          raise e
         end
       end
     end

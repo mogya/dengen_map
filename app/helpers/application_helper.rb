@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   # glyph-icon
   def bs_glyph(name)

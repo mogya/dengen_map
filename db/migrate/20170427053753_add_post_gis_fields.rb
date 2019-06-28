@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddPostGisFields < ActiveRecord::Migration[5.0]
   def change
     add_column :spots, :lonlat, :st_point, srid: 4326

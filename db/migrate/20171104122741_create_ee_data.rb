@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class CreateEeData < ActiveRecord::Migration[5.0]
   def change
     create_table :ee_data do |t|
-      t.references :spot, index:true
+      t.references :spot, index: true
       t.string :title
       t.string :url_title
       t.string :address
@@ -25,6 +27,6 @@ class CreateEeData < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_reference :spots, :ee, index:true
+    add_reference :spots, :ee, index: true
   end
 end

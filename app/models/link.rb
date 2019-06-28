@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Link < ApplicationRecord
   belongs_to :spot
-  enum link_type: [:official, :facebook, :instgram, :twitter, :other]
+  enum link_type: %i[official facebook instgram twitter other]
 
   # linksの中でもっとも公式にふさわしいURLを得る
   # officialがあればそれを返す。それ以外の場合、facebookやtwitterなどがあればそれを返す
@@ -15,5 +17,4 @@ class Link < ApplicationRecord
     end
     ret
   end
-
 end

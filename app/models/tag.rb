@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tag < ApplicationRecord
   IMAGE_PREFIX = '//oasis.mogya.com/images/design/'
 

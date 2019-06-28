@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateModels < ActiveRecord::Migration
   def change
     create_table :spots do |t|
@@ -18,7 +20,7 @@ class CreateModels < ActiveRecord::Migration
       t.string :image
       t.integer :sprite_pos
       t.text :detail
-      t.integer :importance, index: true, default:0
+      t.integer :importance, index: true, default: 0
       t.integer :parent_id, index: true
 
       t.timestamps null: false

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'devise'
-require "rspec/json_expectations"
+require 'rspec/json_expectations'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -9,5 +11,4 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
   end
-
 end

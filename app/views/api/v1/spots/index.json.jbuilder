@@ -1,4 +1,6 @@
-if @status == "OK"
+# frozen_string_literal: true
+
+if @status == 'OK'
   json.results @spots do |spot|
     json.id spot.ee_id
     json.title spot.name
@@ -36,14 +38,14 @@ if @status == "OK"
       json.importance tag.importance
       json.parent_id tag.parent_id
     end
-    json.prime_category {
+    json.prime_category do
       json.name spot.prime_category.name
       json.image spot.prime_category.image_path
       json.image_id spot.prime_category.image_id
       json.sprite_pos spot.prime_category.sprite_pos
       json.importance spot.prime_category.importance
       json.parent_id spot.prime_category.parent_id
-    }
+    end
     json.icon spot.icon
   end
 end
