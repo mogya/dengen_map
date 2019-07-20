@@ -32,20 +32,23 @@ services:
     image: nginx
     ports:
      - "80:80"
-    links:
-      - app:app
     volumes_from:
       - data
-  app:
+  rails:
     build:
       context: ../
-      dockerfile: docker/app/Dockerfile
-    environment:
-      RAILS_ENV: $RAILS_ENV
+      dockerfile: docker/rails/Dockerfile
+    env_file: ../.env
     volumes_from:
       - data
-    links:
-      - db:db
-      # - mysql:mysql
     ports:
-     - "3000:3000"
+     - $RAILS_PORT:$RAILS_PORT
+  front:
+    build:
+      context: ../
+      dockerfile: docker/front/Dockerfile
+    env_file: ../.env
+    volumes_from:
+      - data
+    ports:
+     - $NODE_PORT:$NODE_PORT

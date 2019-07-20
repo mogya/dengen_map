@@ -14,5 +14,5 @@ else
   bundle exec rake assets:precompile
   echo 'start unicorn server.'
   rm /app/tmp/unicorn.pid
-  bundle exec unicorn -c /app/docker/app/unicorn.rb
+  bundle exec unicorn -c /app/docker/rails/unicorn.rb
 fi

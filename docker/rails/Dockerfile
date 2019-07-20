@@ -8,7 +8,7 @@ RUN yum -y update && yum install -y \
   openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel \
   mariadb mariadb-server mariadb-devel mariadb-libs
 RUN yum -y update && yum install -y \
-  gcc gcc-c++ bzip2 make autoconf nodejs docker
+  gcc gcc-c++ bzip2 make autoconf nodejs
 
 ENV RUBY_MAJOR 2.6
 ENV RUBY_VERSION 2.6.3
@@ -44,4 +44,4 @@ RUN bundle install -j4
 #   gcc gcc-c++ bzip2 make autoconf \
 #  && yum -y clean all
 
-CMD ["sh", "/app/docker/app/start.sh"]
+CMD ["sh", "/app/docker/rails/start.sh"]
