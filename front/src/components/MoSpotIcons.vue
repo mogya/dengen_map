@@ -17,21 +17,21 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .mo_spot_icons{
   height: 40px;
-}
-.spot__icons{
-  height: 30px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-.spot_icon{
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  float: left;
-  list-style: none;
+  .spot__icons{
+    height: 30px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .spot_icon{
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    float: left;
+    list-style: none;
+  }
 }
 </style>
 

@@ -313,25 +313,25 @@ export default {
         storage.set('netcafe','false');
       }
     },
+    // spotFilterに引っかからなくて、重複しないデータであればspotsに追加
     addSpots(spots){
       spots.forEach((spot)=>{
         if (this.spotFilter(spot)){
-          let v = this.spots.findIndex( (s)=>{
-            return (s.id === spot.id)
-          } );
-          if (v < 0){
+          const seenKeys = this.spots.map(spot => spot.id).sort()
+          if (seenKeys.includes(spot.id)){
+            // console.log(`skip ${spot.id}:${spot.title}`);
+          }else{
             // console.log(`adding ${spot.id}:${spot.title}`);
             this.spots.push(new MoSpot(spot));
-          }else{
-            // console.log(`skip ${spot.id}:${spot.title}`);
           }
         }
       },this);
     },
+    // ユーザー設定に対して表示して良いspotであればtrueを返す
     spotFilter(spot){
-      var for_pc = false;
-      var for_mobile = false;
-      var netcafe = false;
+      let for_pc = false;
+      let for_mobile = false;
+      let netcafe = false;
       spot.tags.forEach((tag)=>{
         switch (tag.name){
           case '用途:ノマド':

@@ -1,6 +1,6 @@
 <template>
   <div class='molist spot__area clearfix'>
-    <div v-for="(spot,i) in sortedSpots" key='spot.id' :class="`area-${i}`">
+    <div v-for="(spot,i) in sortedSpots" :key="spot.id" :class="`area-${i}`">
       <div class='col-xs-12 col-sm-6 col-md-4 spot__area_outer'>
         <div class='spot__area_inner' :class="{selected: isSpotSelected(spot)}" >
           <p class='title'><a :href='spot.moUrl'>{{spot.title}}</a></p>

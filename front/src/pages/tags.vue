@@ -105,20 +105,20 @@
     padding: 0px;
     position: relative;
   }
-  .spot_icon{
-    width: 45px;
-    height: 45px;
-    text-align: center;
-    float: left;
-    list-style: none;
-    border: 1px #D0D0D0 solid;
-  }
   .area__tag{
     border: 1px #E0E0E0 dotted;
     float:left;
     width: 25%;
     table{
       font-size: 6pt;
+    }
+    .spot_icon{
+      width: 45px;
+      height: 45px;
+      text-align: center;
+      float: left;
+      list-style: none;
+      border: 1px #D0D0D0 solid;
     }
   }
   .pc{

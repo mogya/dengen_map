@@ -218,12 +218,14 @@ export default {
       this.lat = center.lat();
       this.lng = center.lng();
     },
-    onUpdateBounds(bounds){
-      const swne = bounds.toUrlValue().split(',');
-      this.bounds.s = swne[0];
-      this.bounds.w = swne[1];
-      this.bounds.n = swne[2];
-      this.bounds.e = swne[3];
+    onUpdateBounds(){
+      if (this.gmapObj){
+        const swne = this.gmapObj.getBounds().toUrlValue().split(',');
+        this.bounds.s = swne[0];
+        this.bounds.w = swne[1];
+        this.bounds.n = swne[2];
+        this.bounds.e = swne[3];
+      }
     },
     onDrag(){
       // InfoWindowを開いたままドラッグすると、InfoWindowの位置に引き戻されて微妙な操作感になるので、ドラッグしたら閉じる
