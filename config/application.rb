@@ -12,5 +12,6 @@ module DengenMap
   class Application < Rails::Application
     config.time_zone = 'Tokyo'
     config.paths.add 'lib', eager_load: true
+    config.active_job.queue_adapter = :delayed_job
   end
 end

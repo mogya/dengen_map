@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :spots, only: %i[index count]
       get 'spots/count' => 'spots#count'
-      resources :tags, only: [:index]
+      resources :tags, only: %i[index]
+      resources :proposals, only: %i[create update destroy]
     end
   end
 end

@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'dotenv-rails'
 gem 'rails', '~> 5.0.0'
 
+gem 'delayed_job_active_record'
 gem 'unicorn'
 
 gem 'activerecord-postgis-adapter'

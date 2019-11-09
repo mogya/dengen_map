@@ -10,11 +10,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171213144100) do
+ActiveRecord::Schema.define(version: 20191106234907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "contributions", force: :cascade do |t|
+    t.integer  "category",   default: 0,  null: false
+    t.integer  "status",     default: 0,  null: false
+    t.text     "context",    default: "", null: false
+    t.integer  "spot_id",                 null: false
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "email"
+    t.string   "ip_address"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["category"], name: "index_contributions_on_category", using: :btree
+    t.index ["spot_id"], name: "index_contributions_on_spot_id", using: :btree
+    t.index ["status"], name: "index_contributions_on_status", using: :btree
+    t.index ["user_id"], name: "index_contributions_on_user_id", using: :btree
+  end
+
+  create_table "contributtions", force: :cascade do |t|
+    t.integer  "contribution_type", default: 0, null: false
+    t.integer  "status",            default: 0, null: false
+    t.text     "context",                       null: false
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "email"
+    t.string   "ip_address"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["contribution_type"], name: "index_contributtions_on_contribution_type", using: :btree
+    t.index ["status"], name: "index_contributtions_on_status", using: :btree
+    t.index ["user_id"], name: "index_contributtions_on_user_id", using: :btree
+  end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+  end
 
   create_table "ee_data", force: :cascade do |t|
     t.integer  "spot_id"
