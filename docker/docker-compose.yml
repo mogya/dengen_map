@@ -6,49 +6,72 @@ services:
     volumes:
       - /share
       - ..:/app
-      - ./nginx_dev/app.conf:/etc/nginx/conf.d/app.conf
-      # - ./mysql/app.conf:/etc/mysql/conf.d/app.conf:ro
+    user: ${USER_ID}:${GROUP_ID}
   db:
-    env_file: ../.env
     image: mdillon/postgis
     environment:
       POSTGRES_USER: $DB_USER
       POSTGRES_PASSWORD: $DB_PASSWORD
-      PGDATA: /app/db/postgres/data
-    volumes_from:
-      - data
-  # mysql:
-  #   env_file: ../.env
-  #   image: mysql
-  #   environment:
-  #     MYSQL_DATABASE: $MYSQL_DATABASE
-  #     MYSQL_USER: $MYSQL_USER
-  #     MYSQL_PASSWORD: $MYSQL_PASSWORD
-  #     MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-  #     PGDATA: /app/db/mysql/data
-  #   volumes_from:
-  #     - data
-  nginx_dev:
-    image: nginx
+    volumes:
+      - ../tmp/db:/var/lib/postgresql/data
+  nginx:
+    build:
+      context: ../
+      dockerfile: docker/nginx/Dockerfile
+    depends_on: 
+      - rails
+      - front
     ports:
-     - "80:80"
+     - "80:${WEB_PORT}"
+     - "${WEB_PORT}:${WEB_PORT}"
+    environment:
+      - PORT=$WEB_PORT
+      - RAILS_PORT
+      - NODE_PORT
+      - NODE_ENV=development
     volumes_from:
       - data
   rails:
     build:
       context: ../
       dockerfile: docker/rails/Dockerfile
-    env_file: ../.env
+      args:
+        - RUBY_VERSION
+        - USER_ID
+        - GROUP_ID
+    working_dir: /app
+    depends_on:
+      - db
+    ports:
+      - $RAILS_PORT:$RAILS_PORT
     volumes_from:
       - data
+    volumes:
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+    environment:
+      - PORT=$RAILS_PORT
+      - RAILS_ENV=development
+      - SECRET_KEY_BASE
+      - DB_HOST
+      - DB_NAME
+      - DB_USER
+      - DB_PASSWORD
+    user: ${USER_ID}:${GROUP_ID}
     ports:
      - $RAILS_PORT:$RAILS_PORT
   front:
     build:
       context: ../
       dockerfile: docker/front/Dockerfile
-    env_file: ../.env
     volumes_from:
       - data
+    volumes:
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
     ports:
      - $NODE_PORT:$NODE_PORT
+    environment:
+      - NODE_ENV=development

@@ -1,5 +1,5 @@
 upstream unicorn_server {
-  server rails:ENV["RAILS_PORT"];
+  server rails:${RAILS_PORT};
 }
 server {
   listen 80;

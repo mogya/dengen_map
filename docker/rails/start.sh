@@ -1,18 +1,19 @@
 mkdir -p log/unicorn/
 mkdir -p log/nginx/
-mkdir -p db/postgres/data
-mkdir -p db/mysql/data
-echo 'rake db:migrate'
-bundle exec rake db:gis:setup
-bundle exec rake db:migrate
-if [ "$RAILS_ENV" == "development" ]
+if [ "$RAILS_ENV" = "development" ]
 then
-  echo 'start bash.'
-  /bin/bash && tail -f /dev/null
+  export GEM_HOME=/rails/vendor/bundle
+  export PATH=$GEM_HOME/bin:$PATH
+  bundle config --local path "$GEM_HOME"
+  bundle config --local bin "$GEM_HOME/bin"
+  export BUNDLE_APP_CONFIG=$GEM_HOME
+  gem install bundler
+  bundle install -j4 --retry=3
+  bundle exec rake db:gis:setup
+  bin/setup
+  bin/rails db:seed
+  bin/rails s -p $PORT -b 0.0.0.0 &
 else
-  echo 'rake assets:precompile...'
-  bundle exec rake assets:precompile
-  echo 'start unicorn server.'
-  rm /app/tmp/unicorn.pid
-  bundle exec unicorn -c /app/docker/rails/unicorn.rb
+  bin/rails s -p $PORT -b 0.0.0.0 &
 fi
+tail -f /dev/null

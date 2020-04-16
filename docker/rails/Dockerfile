@@ -1,47 +1,26 @@
-FROM centos
-RUN yum -y update && yum install -y \
-  git patch which curl \
-  postgresql postgresql-devel postgresql-libs \
-  sqlite sqlite-devel \
-  build-essential libxml2-dev libxslt1-dev \
-  libjpeg-devel libpng-devel ImageMagick ImageMagick-devel \
-  openssl-devel libyaml-devel libffi-devel readline-devel zlib-devel gdbm-devel ncurses-devel \
-  mariadb mariadb-server mariadb-devel mariadb-libs
-RUN yum -y update && yum install -y \
-  gcc gcc-c++ bzip2 make autoconf nodejs
+ARG RUBY_VERSION
+FROM ruby:${RUBY_VERSION}
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
-ENV RUBY_MAJOR 2.6
-ENV RUBY_VERSION 2.6.3
-RUN yum -y update && yum -y install ruby && yum clean all \
-  && mkdir -p /usr/src/ruby \
-  && curl -SL "http://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-$RUBY_VERSION.tar.bz2" \
-    | tar -xjC /usr/src/ruby --strip-components=1 \
-  && cd /usr/src/ruby \
-  && autoconf \
-  && ./configure --disable-install-doc \
-  && make -j"$(nproc)" \
-  && yum remove -y ruby \
-  && make install \
-  && rm -r /usr/src/ruby
-RUN echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc"
-ENV GEM_HOME /usr/local/bundle
-ENV PATH $GEM_HOME/bin:$PATH
-RUN gem install bundler \
-  && bundle config --global path "$GEM_HOME" \
-  && bundle config --global bin "$GEM_HOME/bin"
-ENV BUNDLE_APP_CONFIG $GEM_HOME
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
+# hadolint ignore=DL3008
+RUN apt-get update -qq && \
+  apt-get install --no-install-recommends -y \
+    apt-utils nodejs yarn postgresql-client less procps curl nano\
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /app
-COPY ./Gemfile /app/
-COPY ./Gemfile.lock /app/
-WORKDIR /app
+RUN curl --silent --location https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-RUN bundle install -j4
+RUN groupadd  --gid ${GROUP_ID} rails && \ 
+    useradd -m --home /rails/ --gid ${GROUP_ID} --uid ${USER_ID} rails && \
+    chown -R ${USER_ID}:${GROUP_ID} /rails
+USER ${USER_ID}
+ENV HOME /rails
 
-# RUN yum -y remove \
-#   gcc gcc-c++ bzip2 make autoconf \
-#  && yum -y clean all
-
+# we cannot access host volume during build. do bundle install on run-time.
 CMD ["sh", "/app/docker/rails/start.sh"]
+# CMD ["tail", "-f", "/dev/null"]

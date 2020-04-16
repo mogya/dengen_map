@@ -1,0 +1,8 @@
+{
+  "docker-compose.projectNames": [
+    "dengen-map"
+  ],
+  "docker-compose.files": [
+    "docker/docker-compose.yml"
+  ]
+}
