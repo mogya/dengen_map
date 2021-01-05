@@ -9,7 +9,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --mode production"
   },
   "dependencies": {
-    "axios": ">=0.15.3",
+    "axios": ">=0.21.1",
     "fontello-webpack-plugin": "^0.4.6",
     "marker-clusterer-plus": ">=2.1.4",
     "sanitize.css": ">=5.0.0",
